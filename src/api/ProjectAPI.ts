@@ -54,3 +54,15 @@ export async function updateProject({formData, projectId} : ProjectAPIType) {
         }
     }
 }
+
+
+export async function deleteProject(id : Project['_id']) {
+    try {
+        const { data } = await API.delete(`/projects/${id}`)
+        return data.message
+    } catch (error) {
+        if(isAxiosError(error) && error.response){
+            throw new Error(error.response.data.message)
+        }
+    }
+}
