@@ -10,7 +10,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import TaskForm from "../tasks/TaskForm";
 import type { TaskFormData } from "@/types/index";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTask } from "@/api/TaskAPI";
 import { toast } from "react-toastify";
 
@@ -33,13 +33,16 @@ const AddTaskModal = () => {
         description: "",
     };
 
+    const queryClient = useQueryClient();
     const { mutate } = useMutation({
       mutationFn: createTask,
       onError: (error: Error) => {
         toast.error(error.message)
       },
       onSuccess: (data) => {
-        console.log(data);
+        queryClient.invalidateQueries({
+          queryKey: ["editProject", projectId],
+        });
         toast.success(data.message)
         reset();
         // Close the modal after creating the task
