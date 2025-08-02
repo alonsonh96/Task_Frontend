@@ -2,12 +2,16 @@ import { Fragment } from "react";
 import type { Task } from "@/types/index";
 import { Menu, MenuButton, Transition, MenuItems, MenuItem} from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import { useNavigate } from "react-router-dom";
 
 type TaskCardProps = {
     task: Task;
 }
 
 const TaskCard = ({ task } : TaskCardProps) => {
+
+  const navigate = useNavigate();
+
   return (
     <li className="bg-white border-slate-300 flex justify-between gap-3 p-5">
       <div className="min-w-0 flex flex-col gap-y-4">
@@ -20,7 +24,7 @@ const TaskCard = ({ task } : TaskCardProps) => {
         <Menu as="div" className="relative flex-none">
           <MenuButton className="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900">
             <span className="sr-only">opciones</span>
-            <EllipsisVerticalIcon className="h-9 w-9" aria-hidden="true" />
+            <EllipsisVerticalIcon className="h-9 w-9 cursor-pointer" aria-hidden="true" />
           </MenuButton>
           <Transition
             as={Fragment}
@@ -35,7 +39,7 @@ const TaskCard = ({ task } : TaskCardProps) => {
               <MenuItem>
                 <button
                   type="button"
-                  className="block px-3 py-1 text-sm leading-6 text-gray-900"
+                  className="block px-3 py-1 text-sm leading-6 text-gray-900 cursor-pointer"
                 >
                   Ver Tarea
                 </button>
@@ -43,7 +47,8 @@ const TaskCard = ({ task } : TaskCardProps) => {
               <MenuItem>
                 <button
                   type="button"
-                  className="block px-3 py-1 text-sm leading-6 text-gray-900"
+                  className="block px-3 py-1 text-sm leading-6 text-gray-900 cursor-pointer"
+                  onClick={() => navigate(location.pathname + `?editTask=${task._id}`)}
                 >
                   Editar Tarea
                 </button>
@@ -52,7 +57,7 @@ const TaskCard = ({ task } : TaskCardProps) => {
               <MenuItem>
                 <button
                   type="button"
-                  className="block px-3 py-1 text-sm leading-6 text-red-500"
+                  className="block px-3 py-1 text-sm leading-6 text-red-500 cursor-pointer"
                 >
                   Eliminar Tarea
                 </button>
