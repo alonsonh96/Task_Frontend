@@ -2,7 +2,10 @@ import { Fragment } from "react";
 import type { Task } from "@/types/index";
 import { Menu, MenuButton, Transition, MenuItems, MenuItem} from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { deleteTask } from "@/api/TaskAPI";
 
 type TaskCardProps = {
     task: Task;
@@ -11,6 +14,27 @@ type TaskCardProps = {
 const TaskCard = ({ task } : TaskCardProps) => {
 
   const navigate = useNavigate();
+  const params = useParams();
+  const projectId = params.projectId!;
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: deleteTask,
+    onSuccess: () => {
+      toast.success("Task successfully deleted");
+      queryClient.invalidateQueries({ queryKey: ["project", projectId]});},
+    onError: (error) => {
+      toast.error(error.message);
+    }
+  })
+
+  const handleDeleteTask = () => {
+    const data = {
+      projectId,
+      taskId: task._id
+    }
+    mutate(data);
+  }
 
   return (
     <li className="bg-white border-slate-300 flex justify-between gap-3 p-5">
@@ -57,6 +81,7 @@ const TaskCard = ({ task } : TaskCardProps) => {
               <MenuItem>
                 <button
                   type="button"
+                  onClick={handleDeleteTask}
                   className="block px-3 py-1 text-sm leading-6 text-red-500 cursor-pointer"
                 >
                   Eliminar Tarea

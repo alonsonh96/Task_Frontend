@@ -40,9 +40,8 @@ const AddTaskModal = () => {
         toast.error(error.message)
       },
       onSuccess: (data) => {
-        queryClient.invalidateQueries({
-          queryKey: ["editProject", projectId],
-        });
+        queryClient.invalidateQueries({queryKey: ["editProject", projectId]});
+        queryClient.invalidateQueries({queryKey: ["project", projectId]});
         toast.success(data.message)
         reset();
         // Close the modal after creating the task
