@@ -4,6 +4,7 @@ import { getProjectsById } from '@/api/ProjectAPI';
 import AddTaskModal from '../tasks/AddTaskModal';
 import TaskList from '../tasks/TaskList';
 import EditTaskData from '../tasks/EditTaskData';
+import TaskDetails from '../tasks/TaskModalDetails';
 
 const ProjectDetailsView = () => {
 
@@ -32,9 +33,10 @@ const ProjectDetailsView = () => {
         Agregar Tarea
       </button>
      </nav>
-     <AddTaskModal/>
      <TaskList tasks={data.tasks}/>
+     <AddTaskModal/>
      <EditTaskData/>
+     <TaskDetails/>
     </>
   )
 }
