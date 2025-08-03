@@ -1,21 +1,16 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
+import { statusTranslations } from '@/locales/es';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { getTaskById } from '@/api/TaskAPI';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { getTaskById, updateTaskStatus } from '@/api/TaskAPI';
 import { toast } from 'react-toastify';
 import { formatDateTime } from '@/utils/utils';
+import type { TaskStatus } from '@/types/index';
 
 const TaskModalDetails = () => {
 
-  const statusTranslation : {[key:string] : string} = {
-    pending: "Pendiente",
-    onHold: "En Espera",
-    inProgress: "En Progreso",
-    underReview: "En Revisión",
-    completed: "Completada"
-}
-
+  const queryClient = useQueryClient();
   const params = useParams();
   const projectId = params.projectId!;
 
@@ -33,10 +28,37 @@ const TaskModalDetails = () => {
     retry: false,
   })
 
-  if(isError){
-    toast.error(error.message, { toastId: 'error'});
-    return <Navigate to={`/projects/${projectId}`}/>
+  const { mutate } = useMutation({
+    mutationFn: updateTaskStatus,
+    onSuccess: (data) => {
+      toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["task", taskId] });
+      navigate(location.pathname, { replace: true });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    }
+  })
+
+  const handleChangeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const status = e.target.value as TaskStatus
+    const data = {
+      projectId,
+      taskId,
+      status 
+    }
+    mutate(data);
   }
+
+  useEffect(() => {
+  if (isError) {
+    toast.error(error.message, { toastId: 'error' });
+  } 
+}, [isError, error]);
+
+  if (isError) return <Navigate to={`/projects/${projectId}`}/>
+
 
   if(data) return (
       <>
@@ -76,7 +98,16 @@ const TaskModalDetails = () => {
                                   </DialogTitle>
                                   <p className="text-lg text-slate-500 mb-2">Descripción: {data.description}</p>
                                   <div className="my-5 space-y-3">
-                                      <label className="font-bold">Estado Actual: {statusTranslation[data.status]}</label>
+                                      <label className="font-bold">Estado Actual: {statusTranslations[data.status]}</label>
+                                      <select 
+                                        onChange={handleChangeStatus}
+                                        defaultValue={data.status} name="" id="" className='w-full p-3 mt-1 bg-white border border-gray-400 rounded-md'>
+                                        {Object.entries(statusTranslations).map(([key, value]) => (
+                                            <option key={key} value={key}>
+                                                {value}
+                                            </option>
+                                        ))}
+                                      </select>
                                   </div>
                               </DialogPanel>
                           </TransitionChild>
