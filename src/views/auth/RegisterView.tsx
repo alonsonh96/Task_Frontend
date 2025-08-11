@@ -135,8 +135,15 @@ const RegisterView = () => {
           className="bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3  text-white font-black  text-xl cursor-pointer"
         />
       </form>
-      <nav className="mt-10 flex flex-row mx-auto space-y-4">
-          <Link to='/auth/login' className="text-center text-gray-300 font-normal mx-auto">¿Ya tienes cuenta? <span className="font-bold underline">Iniciar sesión</span></Link>
+      <nav className="mt-10 flex flex-col mx-auto space-y-4">
+        <Link to='/auth/login' className="text-center text-gray-300 font-normal mx-auto">
+          ¿Ya tienes cuenta?
+          <span className="font-bold underline">Iniciar sesión</span>
+        </Link>
+        <Link to='/auth/forgot-password' className="text-center text-gray-300 font-normal mx-auto">
+          ¿Olviaste tu contraseña?
+          <span className="font-bold underline ml-0.5">Reestablecer</span>
+        </Link>
       </nav>
     </>
   )

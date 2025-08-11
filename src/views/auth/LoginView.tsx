@@ -83,8 +83,15 @@ const LoginView = () => {
           className="bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3  text-white font-black  text-xl cursor-pointer rounded-md"
         />
       </form>
-      <nav className="mt-10 flex flex-row mx-auto space-y-4">
-          <Link to='/auth/register' className="text-center text-gray-300 font-normal mx-auto">¿No tienes cuenta? <span className="font-bold underline">Crear una</span></Link>
+      <nav className="mt-10 flex flex-col mx-auto space-y-4">
+        <Link to='/auth/register' className="text-center text-gray-300 font-normal mx-auto">
+          ¿No tienes cuenta?
+          <span className="font-bold underline ml-0.5">Crear una</span>
+        </Link>
+        <Link to='/auth/forgot-password' className="text-center text-gray-300 font-normal mx-auto">
+          ¿Olviaste tu contraseña?
+          <span className="font-bold underline ml-0.5">Reestablecer</span>
+        </Link>
       </nav>
     </>
   )
