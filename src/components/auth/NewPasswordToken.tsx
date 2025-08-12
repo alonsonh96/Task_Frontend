@@ -40,12 +40,12 @@ const NewPasswordToken = ( { token, setToken, setIsValidToken } : NewPasswordTok
                     onChange={handleChange}
                     onComplete={handleComplete}
                 >
-                    <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
-                    <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
-                    <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
-                    <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
-                    <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
-                    <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white' />
+                    <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-600 border placeholder-white text-center font-bold' />
+                    <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-600 border placeholder-white text-center font-bold' />
+                    <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-600 border placeholder-white text-center font-bold' />
+                    <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-600 border placeholder-white text-center font-bold' />
+                    <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-600 border placeholder-white text-center font-bold' />
+                    <PinInputField className='h-10 w-10 p-3 rounded-lg border-gray-600 border placeholder-white text-center font-bold' />
                 </PinInput>
             </div>
         </form>

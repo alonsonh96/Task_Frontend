@@ -18,7 +18,7 @@ const NewPasswordView = () => {
       </p>
       {!isValidToken ? 
       <NewPasswordToken token={token} setToken={setToken} setIsValidToken={setIsValidToken}/> 
-      : <NewPasswordFormData/>}
+      : <NewPasswordFormData token={token}/>}
     </>
   )
 }
