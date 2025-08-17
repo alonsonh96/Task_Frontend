@@ -91,7 +91,19 @@ export async function getUser(){
     try {
         const { data } = await API.get(`/auth/user`)
         const response = userResponseSchema.safeParse(data)
-        if(response.success) return response
+        if(response.success) return response.data
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+        }
+    }
+}
+
+
+export async function logoutUser(){
+    try {
+       await API.post('auth/logout')
+       return true
     } catch (error) {
         if (isAxiosError(error) && error.response) {
             throw new Error(error.response.data.message);
