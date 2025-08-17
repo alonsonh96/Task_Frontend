@@ -7,12 +7,12 @@ import { useAuth } from "@/hooks/useAuth";
 
 const AppLayout = () => {
 
-  const { isError, isLoading } = useAuth()
+  const { isError, isLoading, data } = useAuth()
 
   if(isLoading) return 'Cargando ...'
   if(isError) return <Navigate to='/auth/login'/>
 
-  return (
+  if(data) return (
     <>
       <header className="bg-gray-800 py-5">
         <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row justify-between items-center">

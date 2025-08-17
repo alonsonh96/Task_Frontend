@@ -1,6 +1,11 @@
 import { z } from "zod"
 
 
+export const apiResponseSchema = z.object({
+    success: z.boolean(),
+    message: z.string(),
+})
+
 // -- Auth Users -- //
 export const authSchema = z.object({
     name: z.string(),
@@ -17,6 +22,12 @@ export type ConfirmToken = Pick<Auth, 'token'>
 export type RequestConfirmationCodeForm = Pick<Auth, 'email'>
 export type ForgotPasswordForm = Pick<Auth, 'email'>
 export type NewPasswordForm = Pick<Auth, 'password' | 'password_confirmation'>
+
+
+// -- Users -- //
+export const userSchema = authSchema.pick({ name: true, email: true }).extend({ _id: z.string() })
+export const userResponseSchema = apiResponseSchema.extend({ data: userSchema })
+export type User = z.infer<typeof userSchema>
 
 // -- Tasks -- //
 export const taskStatusSchema = z.enum(['pending', 'onHold', 'in-progress', 'completed']);
