@@ -31,7 +31,7 @@ export async function getProjects() {
 export async function getProjectsById(id : Project['_id']) {
     try {
         const { data } = await API.get(`/projects/${id}`)
-        return data
+        return data.data
     } catch (error) {
         if(isAxiosError(error) && error.response){
             throw new Error(error.response.data.message)

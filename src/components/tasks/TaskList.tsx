@@ -41,7 +41,7 @@ const TaskList = ({tasks} : TaskListProps) => {
     <>
       <h2 className="text-5xl font-black my-10">Tareas</h2>
 
-      <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-32">
+      <div className="flex flex-wrap gap-5 overflow-x-scroll 2xl:overflow-auto pb-32">
         {Object.entries(groupedTasks).map(([status, tasks]) => (
           <div key={status} className="min-w-[300px] 2xl:min-w-0 2xl:w-1/5">
             <h3 

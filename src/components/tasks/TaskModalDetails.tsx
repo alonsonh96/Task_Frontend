@@ -18,13 +18,16 @@ const TaskModalDetails = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const taskId = queryParams.get('viewTask')!;
-
   const show = taskId ? true : false;
+
+  // Validar que tanto projectId como taskId existan
+  const shouldQuery = !!(projectId && taskId)
+  console.log(queryClient.getQueryData(['task', taskId]));
 
   const { data, isError, error } = useQuery({
     queryKey: ['task', taskId],
     queryFn: () => getTaskById({projectId, taskId}),
-    enabled: !!taskId,
+    enabled: shouldQuery,
     retry: false,
   })
 
@@ -88,20 +91,20 @@ const TaskModalDetails = () => {
                               leaveTo="opacity-0 scale-95"
                           >
                               <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
-                                  <p className="text-sm text-slate-500 font-bold">Agregada el : {formatDateTime(data.createdAt)}</p>
-                                  <p className="text-sm text-slate-500 font-bold">Última actualización : {formatDateTime(data.updatedAt)}</p>
+                                  <p className="text-sm text-slate-500 font-bold">Agregada el : {formatDateTime(data.data.createdAt)}</p>
+                                  <p className="text-sm text-slate-500 font-bold">Última actualización : {formatDateTime(data.data.updatedAt)}</p>
                                   <DialogTitle
                                       as="h3"
                                       className="font-black text-4xl text-slate-600 my-5"
                                   >
-                                      {data.name}
+                                      {data?.data.name}
                                   </DialogTitle>
-                                  <p className="text-lg text-slate-500 mb-2">Descripción: {data.description}</p>
+                                  <p className="text-lg text-slate-500 mb-2">Descripción: {data?.data.description}</p>
                                   <div className="my-5 space-y-3">
-                                      <label className="font-bold">Estado Actual: {statusTranslations[data.status]}</label>
+                                      <label className="font-bold">Estado Actual: {statusTranslations[data.data.status]}</label>
                                       <select 
                                         onChange={handleChangeStatus}
-                                        defaultValue={data.status} name="" id="" className='w-full p-3 mt-1 bg-white border border-gray-400 rounded-md'>
+                                        defaultValue={data?.data.status} name="" id="" className='w-full p-3 mt-1 bg-white border border-gray-400 rounded-md'>
                                         {Object.entries(statusTranslations).map(([key, value]) => (
                                             <option key={key} value={key}>
                                                 {value}

@@ -30,7 +30,7 @@ export const userResponseSchema = apiResponseSchema.extend({ data: userSchema })
 export type User = z.infer<typeof userSchema>
 
 // -- Tasks -- //
-export const taskStatusSchema = z.enum(['pending', 'onHold', 'in-progress', 'completed']);
+export const taskStatusSchema = z.enum(['pending', 'onHold', 'inProgress', 'underReview', 'completed']);
 export type TaskStatus = z.infer<typeof taskStatusSchema>
 
 export const taskSchema = z.object({
@@ -45,7 +45,7 @@ export const taskSchema = z.object({
 
 export type Task = z.infer<typeof taskSchema>
 export type TaskFormData = Pick<Task, 'name' | 'description'> 
-
+export const taskResponseSchema = apiResponseSchema.extend({ data: taskSchema})
 
 
 // -- Projects -- //

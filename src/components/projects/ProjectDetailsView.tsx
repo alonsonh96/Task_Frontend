@@ -4,7 +4,7 @@
   import AddTaskModal from '../tasks/AddTaskModal';
   import TaskList from '../tasks/TaskList';
   import EditTaskData from '../tasks/EditTaskData';
-  import TaskDetails from '../tasks/TaskModalDetails';
+  import TaskModalDetails from '../tasks/TaskModalDetails';
 
   const ProjectDetailsView = () => {
 
@@ -14,6 +14,7 @@
     const { data, isLoading, isError } = useQuery({
       queryKey: ["project", projectId],
       queryFn: () => getProjectsById(projectId!),
+      enabled: !!projectId,
       retry: false,
     });
 
@@ -36,7 +37,7 @@
       <TaskList tasks={data.tasks}/>
       <AddTaskModal/>
       <EditTaskData/>
-      <TaskDetails/>
+      <TaskModalDetails/>
       </>
     )
   }
