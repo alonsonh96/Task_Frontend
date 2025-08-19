@@ -23,7 +23,11 @@ export const AddMemberForm = () => {
     const handleSearchUser = async (formData : TeamMemberForm) => {
         const data = {projectId, formData}
         mutation.mutate(data)
-        console.log(mutation.data.data)
+    }
+
+    const resetData = () => {
+        reset(),
+        mutation.reset()
     }
 
     return (
@@ -67,7 +71,7 @@ export const AddMemberForm = () => {
 
             {mutation.isPending && (<p className="mx-auto text-center mt-10">Cargando ...</p>)}
             {mutation.error && (<p className="mx-auto text-center mt-10">Usuario no encontrado</p>)}
-            {mutation.data && (<SearchResult user={mutation.data.data}/>)}
+            {mutation.data && (<SearchResult user={mutation.data.data} reset={resetData}/>)}
         </>
     )
 }
