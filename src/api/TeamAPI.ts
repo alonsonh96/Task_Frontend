@@ -30,7 +30,6 @@ export async function getProjectTeam(projectId: Project['_id']){
     try {
         const { data } = await API.get(`/projects/${projectId}/team`)
         const response = teamMembersSchemaResponse.safeParse(data)
-        console.log(response.data?.data)
         return response.data?.data
     } catch (error) {
         if(isAxiosError(error) && error.response){
