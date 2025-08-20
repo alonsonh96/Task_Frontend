@@ -6,6 +6,8 @@ export const apiResponseSchema = z.object({
     message: z.string(),
 })
 
+export type ApiResponse = z.infer<typeof apiResponseSchema>
+
 // -- Auth Users -- //
 export const authSchema = z.object({
     name: z.string(),
@@ -64,3 +66,10 @@ export const dashboardProjectSchema = z.array(projectSchema.pick({
 }))
 export type Project = z.infer<typeof projectSchema>
 export type ProjectFormData = Pick<Project, 'clientName' | 'projectName' | 'description'>
+
+
+// -- Team -- //
+const teamMemberSchema = userSchema.pick({name: true, email: true, _id: true})
+export const teamMembersSchemaResponse = apiResponseSchema.extend({ data: z.array(teamMemberSchema)})
+export type TeamMember = z.infer<typeof teamMemberSchema>
+export type TeamMemberForm = Pick<TeamMember, 'email'>
