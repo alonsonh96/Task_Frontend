@@ -11,14 +11,16 @@ import { Link } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteProject, getProjects } from "@/api/ProjectAPI";
 import { toast } from "react-toastify";
+import { useAuth } from "@/hooks/useAuth";
 
 const DashboardView = () => {
 
+  const { data: user, isLoading: authLoading } = useAuth()
   const { data, isLoading } = useQuery({
     queryKey: ["projects"],
     queryFn: getProjects,
   });
-
+  
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: deleteProject,
@@ -31,9 +33,9 @@ const DashboardView = () => {
     },
   })
 
-  if (isLoading) return "Cargando";
+  if (isLoading && authLoading) return "Cargando";
 
-  if (data)
+  if (data && user)
     return (
       <>
         <h1 className="text-5xl font-black">Mis proyectos</h1>
@@ -56,10 +58,13 @@ const DashboardView = () => {
             {data.map((project) => (
               <li
                 key={project._id}
-                className="flex justify-between gap-x-6 px-5 py-10"
+                className="flex justify-between gap-x-6 px-5 py-10 bg-slate-200 border-slate-700 mb-1"
               >
                 <div className="flex min-w-0 gap-x-4">
-                  <div className="min-w-0 flex-auto space-y-2">
+                  <div className="min-w-0 flex flex-col space-y-2">
+                    {project.manager == user.data._id ? 
+                      <p className="font-bold w-fit text-xs uppercase bg-indigo-50 text-indigo-500 border-2 border-indigo-500 rounded-lg inline-block py-1 px-5">Manager</p> 
+                    : <p className="font-bold w-fit text-xs uppercase bg-indigo-50 text-green-500 border-2 border-green-500 rounded-lg inline-block py-1 px-5">Colaborador</p>}
                     <Link
                       to={`/projects/${project._id}`}
                       className="text-gray-600 cursor-pointer hover:underline text-3xl font-bold"
@@ -101,23 +106,27 @@ const DashboardView = () => {
                             Ver Proyecto
                           </Link>
                         </MenuItem>
-                        <MenuItem>
-                          <Link
-                            to={`/projects/${project._id}/edit`}
-                            className="block px-3 py-1 text-sm leading-6 text-gray-900"
-                          >
-                            Editar Proyecto
-                          </Link>
-                        </MenuItem>
-                        <MenuItem>
-                          <button
-                            type="button"
-                            className="block px-3 py-1 text-sm leading-6 text-red-500"
-                            onClick={() => mutate(project._id)}
-                          >
-                            Eliminar Proyecto
-                          </button>
-                        </MenuItem>
+                        {project.manager ==  user.data._id && (
+                          <>
+                            <MenuItem>
+                            <Link
+                              to={`/projects/${project._id}/edit`}
+                              className="block px-3 py-1 text-sm leading-6 text-gray-900"
+                            >
+                              Editar Proyecto
+                            </Link>
+                            </MenuItem>
+                            <MenuItem>
+                              <button
+                                type="button"
+                                className="block px-3 py-1 text-sm leading-6 text-red-500"
+                                onClick={() => mutate(project._id)}
+                              >
+                                Eliminar Proyecto
+                              </button>
+                            </MenuItem>
+                          </>
+                        )}
                       </MenuItems>
                     </Transition>
                   </Menu>
