@@ -22,7 +22,6 @@ const TaskModalDetails = () => {
 
   // Validar que tanto projectId como taskId existan
   const shouldQuery = !!(projectId && taskId)
-  console.log(queryClient.getQueryData(['task', taskId]));
 
   const { data, isError, error } = useQuery({
     queryKey: ['task', taskId],
