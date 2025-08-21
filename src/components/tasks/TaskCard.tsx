@@ -9,9 +9,10 @@ import { deleteTask } from "@/api/TaskAPI";
 
 type TaskCardProps = {
     task: Task;
+    canEdit: boolean
 }
 
-const TaskCard = ({ task } : TaskCardProps) => {
+const TaskCard = ({ task, canEdit } : TaskCardProps) => {
 
   const navigate = useNavigate();
   const params = useParams();
@@ -39,7 +40,8 @@ const TaskCard = ({ task } : TaskCardProps) => {
   return (
     <li className="bg-white border-slate-300 flex justify-between gap-3 p-5">
       <div className="min-w-0 flex flex-col gap-y-4">
-        <button type="button" className="text-xl font-bold text-slate-600 text-left">
+        <button type="button" className="text-xl font-bold text-slate-600 text-left cursor-pointer"
+        onClick={() => navigate(location.pathname + `?editTask=${task._id}`)}>
             {task.name}
         </button>
         <p className="text-slate-500">{task.description}</p>
@@ -69,25 +71,30 @@ const TaskCard = ({ task } : TaskCardProps) => {
                   Ver Tarea
                 </button>
               </MenuItem>
-              <MenuItem>
-                <button
-                  type="button"
-                  className="block px-3 py-1 text-sm leading-6 text-gray-900 cursor-pointer"
-                  onClick={() => navigate(location.pathname + `?editTask=${task._id}`)}
-                >
-                  Editar Tarea
-                </button>
-              </MenuItem>
+              {canEdit && (
+                <>
+                  <MenuItem>
+                    <button
+                      type="button"
+                      className="block px-3 py-1 text-sm leading-6 text-gray-900 cursor-pointer"
+                      onClick={() => navigate(location.pathname + `?editTask=${task._id}`)}
+                    >
+                      Editar Tarea
+                    </button>
+                  </MenuItem>
 
-              <MenuItem>
-                <button
-                  type="button"
-                  onClick={handleDeleteTask}
-                  className="block px-3 py-1 text-sm leading-6 text-red-500 cursor-pointer"
-                >
-                  Eliminar Tarea
-                </button>
-              </MenuItem>
+                  <MenuItem>
+                    <button
+                      type="button"
+                      onClick={handleDeleteTask}
+                      className="block px-3 py-1 text-sm leading-6 text-red-500 cursor-pointer"
+                    >
+                      Eliminar Tarea
+                    </button>
+                  </MenuItem>
+                </>
+              )}
+              
             </MenuItems>
           </Transition>
         </Menu>
