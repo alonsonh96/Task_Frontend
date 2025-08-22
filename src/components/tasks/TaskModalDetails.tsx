@@ -101,6 +101,15 @@ const TaskModalDetails = () => {
                                   <p className="text-lg text-slate-500 mb-2">Descripción: {data?.data.description}</p>
                                   <div className="my-5 space-y-3">
                                       <label className="font-bold">Estado Actual: {statusTranslations[data.data.status]}</label>
+                                  <p className='text-lg text-slate-500 mb-2'>
+                                    Historial de cambios
+                                  </p>
+                                  {data?.data.completedBy?.map((activityLog, index) => (
+                                    <p key={index}>
+                                      <span className='font-bold text-slate-600'>{statusTranslations[activityLog.status]} : </span>
+                                      {activityLog.user.name}
+                                    </p>
+                                  ))}
                                       <select 
                                         onChange={handleChangeStatus}
                                         defaultValue={data?.data.status} name="" id="" className='w-full p-3 mt-1 bg-white border border-gray-400 rounded-md'>
