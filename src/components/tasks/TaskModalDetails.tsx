@@ -7,6 +7,7 @@ import { getTaskById, updateTaskStatus } from '@/api/TaskAPI';
 import { toast } from 'react-toastify';
 import { formatDateTime } from '@/utils/utils';
 import type { TaskStatus } from '@/types/index';
+import { NotesPanel } from '../notes/NotesPanel';
 
 const TaskModalDetails = () => {
 
@@ -101,15 +102,22 @@ const TaskModalDetails = () => {
                                   <p className="text-lg text-slate-500 mb-2">Descripción: {data?.data.description}</p>
                                   <div className="my-5 space-y-3">
                                       <label className="font-bold">Estado Actual: {statusTranslations[data.data.status]}</label>
-                                  <p className='text-lg text-slate-500 mb-2'>
-                                    Historial de cambios
-                                  </p>
-                                  {data?.data.completedBy?.map((activityLog, index) => (
-                                    <p key={index}>
-                                      <span className='font-bold text-slate-600'>{statusTranslations[activityLog.status]} : </span>
-                                      {activityLog.user.name}
-                                    </p>
-                                  ))}
+
+                                  {data.data.completedBy.length ? (
+                                    <>
+                                      <p className='font-bold text-2xl text-slate-600 mb-2'>
+                                        Historial de cambios
+                                      </p>
+                                      {data?.data.completedBy?.map((activityLog, index) => (
+                                        <ul key={index} className='list-decimal'>
+                                          <li>
+                                            <span className='font-bold text-slate-600'>{statusTranslations[activityLog.status]} : </span>
+                                            {activityLog.user.name}
+                                          </li>
+                                        </ul>
+                                      ))}
+                                    </>
+                                  ) : null}
                                       <select 
                                         onChange={handleChangeStatus}
                                         defaultValue={data?.data.status} name="" id="" className='w-full p-3 mt-1 bg-white border border-gray-400 rounded-md'>
@@ -120,6 +128,7 @@ const TaskModalDetails = () => {
                                         ))}
                                       </select>
                                   </div>
+                                  <NotesPanel notes={data.data.notes}/>
                               </DialogPanel>
                           </TransitionChild>
                       </div>
