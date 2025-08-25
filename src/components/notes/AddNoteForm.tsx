@@ -55,7 +55,7 @@ export const AddNoteForm = () => {
                 <ErrorMessage>{errors.content.message}</ErrorMessage>
             )}
         </div>
-        <input type="submit" value="Crear Nota"  className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-2 text-white font-black font-black cursor-pointer'/>
+        <input type="submit" value="Crear Nota"  className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-2 text-white font-black cursor-pointer'/>
     </form>
   )
 }

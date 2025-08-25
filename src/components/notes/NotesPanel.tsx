@@ -1,4 +1,3 @@
-import React from 'react'
 import { AddNoteForm } from './AddNoteForm'
 import type { Note } from '@/types/index'
 import { NoteDetail } from './NoteDetail'
