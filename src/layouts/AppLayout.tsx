@@ -9,10 +9,10 @@ const AppLayout = () => {
 
   const { isError, isLoading, data } = useAuth()
 
-  if(isLoading) return 'Cargando ...'
-  if(isError) return <Navigate to='/auth/login'/>
+  // if(isLoading) return 'Cargando ...'
+  // if(isError) return <Navigate to='/auth/login'/>
 
-  if(data) return (
+  return (
     <>
       <header className="bg-gray-800 py-5">
         <div className="max-w-screen-2xl mx-auto flex lg:flex-row justify-between items-center">
