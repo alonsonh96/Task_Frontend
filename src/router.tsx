@@ -15,7 +15,8 @@ import ProjectTeamView from './views/projects/ProjectTeamView'
 import ProfileView from './views/profile/ProfileView'
 import ChangePasswordView from './views/profile/ChangePasswordView'
 import ProfileLayout from './layouts/ProfileLayout'
-import ProtectedRoute from './guards/ProtectedRoute'
+import ProtectedRoute from './routing/ProtectedRoute'
+import PublicRoute from './routing/PublicRoute'
 
 export default function Router() {
     return(
@@ -38,7 +39,11 @@ export default function Router() {
                     </Route>
                     
                 </Route>
-                <Route element={<AuthLayout/>}>
+                <Route element={
+                    <PublicRoute>
+                        <AuthLayout/>
+                    </PublicRoute>
+                }>
                     <Route path='/auth/login' element={<LoginView/>}/>
                     <Route path='/auth/register' element={<RegisterView/>}/>
                     <Route path='/auth/confirm-account' element={<ConfirmAccoutView/>}/>

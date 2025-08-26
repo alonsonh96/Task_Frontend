@@ -19,13 +19,11 @@ const DashboardView = () => {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const { data: user, isLoading: authLoading } = useAuth()
-  const { data, isLoading } = useQuery({
+  const { data: user } = useAuth()
+  const { data } = useQuery({
     queryKey: ["projects"],
     queryFn: getProjects,
   });
-
-  if (isLoading && authLoading) return "Cargando";
 
   if (data && user)
     return (
