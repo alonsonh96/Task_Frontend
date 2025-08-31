@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { authenticateUser } from "@/api/AuthAPI";
 import { toast } from "react-toastify";
+import { ROUTE_PATHS } from "@/constants/routes";
 
 const LoginView = () => {
 
@@ -87,11 +88,11 @@ const LoginView = () => {
         />
       </form>
       <nav className="mt-10 flex flex-col mx-auto space-y-4">
-        <Link to='/auth/register' className="text-center text-gray-300 font-normal mx-auto">
+        <Link to={ROUTE_PATHS.AUTH.REGISTER} className="text-center text-gray-300 font-normal mx-auto">
           ¿No tienes cuenta?
           <span className="font-bold underline ml-0.5">Crear una</span>
         </Link>
-        <Link to='/auth/forgot-password' className="text-center text-gray-300 font-normal mx-auto">
+        <Link to={ROUTE_PATHS.AUTH.FORGOT_PASSWORD} className="text-center text-gray-300 font-normal mx-auto">
           ¿Olviaste tu contraseña?
           <span className="font-bold underline ml-0.5">Reestablecer</span>
         </Link>

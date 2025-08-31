@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import ErrorMessage from "@/components/ErrorMessage";
 import { forgotPassword } from "@/api/AuthAPI";
 import { toast } from "react-toastify";
+import { ROUTE_PATHS } from "@/constants/routes";
 
 const ForgotPasswordView = () => {
 
@@ -71,7 +72,7 @@ const ForgotPasswordView = () => {
 
       <nav className="mt-10 flex flex-col space-y-4">
         <Link
-          to='/auth/login'
+          to={ROUTE_PATHS.AUTH.LOGIN}
           className="text-center text-gray-300 font-normal"
         >
           ¿Ya tienes cuenta? Iniciar Sesión
@@ -79,7 +80,7 @@ const ForgotPasswordView = () => {
         </Link>
 
         <Link
-          to='/auth/register'
+          to={ROUTE_PATHS.AUTH.REGISTER}
           className="text-center text-gray-300 font-normal mx-auto"
         >
           ¿No tienes cuenta? 

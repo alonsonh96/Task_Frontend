@@ -13,6 +13,7 @@ import { getProjects } from "@/api/ProjectAPI";
 import { useAuth } from "@/hooks/useAuth";
 import { isManager } from "@/utils/policies";
 import DeleteProjectModal from "@/components/projects/DeleteProjectModal";
+import { ROUTE_PATHS } from "@/constants/routes";
 
 const DashboardView = () => {
 
@@ -34,7 +35,7 @@ const DashboardView = () => {
         </p>
         <nav className="my-5">
           <Link
-            to="/projects/create"
+            to={ROUTE_PATHS.PROJECTS.CREATE}
             className="bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors"
           >
             Nuevo Proyecto
@@ -56,7 +57,7 @@ const DashboardView = () => {
                       <p className="font-bold w-fit text-xs uppercase bg-indigo-50 text-indigo-500 border-2 border-indigo-500 rounded-lg inline-block py-1 px-5">Manager</p> 
                     : <p className="font-bold w-fit text-xs uppercase bg-indigo-50 text-green-500 border-2 border-green-500 rounded-lg inline-block py-1 px-5">Colaborador</p>}
                     <Link
-                      to={`/projects/${project._id}`}
+                      to={ROUTE_PATHS.PROJECTS.DETAIL.generate(project._id)}
                       className="text-gray-600 cursor-pointer hover:underline text-3xl font-bold"
                     >
                       {project.projectName}
@@ -90,7 +91,7 @@ const DashboardView = () => {
                       <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
                         <MenuItem>
                           <Link
-                            to={`/projects/${project._id}`}
+                            to={ROUTE_PATHS.PROJECTS.DETAIL.generate(project._id)}
                             className="block px-3 py-1 text-sm leading-6 text-gray-900"
                           >
                             Ver Proyecto
@@ -100,7 +101,7 @@ const DashboardView = () => {
                           <>
                             <MenuItem>
                             <Link
-                              to={`/projects/${project._id}/edit`}
+                              to={ROUTE_PATHS.PROJECTS.EDIT.generate(project._id)}
                               className="block px-3 py-1 text-sm leading-6 text-gray-900"
                             >
                               Editar Proyecto
@@ -128,7 +129,7 @@ const DashboardView = () => {
           <p className="text-center font-bold py-20">
             No hay proyectos aun {""}
             <Link
-              to="/projects/create"
+              to={ROUTE_PATHS.PROJECTS.CREATE}
               className="text-fuchsia-500 font-bold underline"
             >
               Crear Proyecto

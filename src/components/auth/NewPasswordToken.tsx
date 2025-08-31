@@ -1,4 +1,5 @@
 import { validateToken } from '@/api/AuthAPI';
+import { ROUTE_PATHS } from '@/constants/routes';
 import type { ConfirmToken } from '@/types/index';
 import { PinInput, PinInputField } from '@chakra-ui/pin-input';
 import { useMutation } from '@tanstack/react-query';
@@ -51,7 +52,7 @@ const NewPasswordToken = ( { token, setToken, setIsValidToken } : NewPasswordTok
         </form>
         <nav className='mt-10 flex flex-col space-y-4'>
             <Link
-                to='/auth/forgot-password'
+                to={ROUTE_PATHS.AUTH.FORGOT_PASSWORD}
                 className='text-center text-gray-300 font-normal'
             >
                 Solicitar un nuevo Código

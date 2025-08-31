@@ -22,7 +22,7 @@ const TaskCard = ({ task, canEdit } : TaskCardProps) => {
   const { mutate } = useMutation({
     mutationFn: deleteTask,
     onSuccess: () => {
-      toast.success("Task successfully deleted");
+      toast.success("Tarea eliminada correctamente");
       queryClient.invalidateQueries({ queryKey: ["project", projectId]});},
     onError: (error) => {
       toast.error(error.message);

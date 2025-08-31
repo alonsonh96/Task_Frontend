@@ -7,6 +7,7 @@ import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/r
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid"
 import { Fragment } from "react/jsx-runtime"
 import { toast } from "react-toastify"
+import { ROUTE_PATHS } from "@/constants/routes"
 
 
 const ProjectTeamView = () => {
@@ -34,7 +35,7 @@ const ProjectTeamView = () => {
   })
 
   if(isLoading) return 'Cargando ...'
-  if(isError) return <Navigate to={'/404'}/>
+  if(isError) return <Navigate to={ROUTE_PATHS.ERROR.NOT_FOUND}/>
 
   if(data)  return (
         <>
@@ -49,7 +50,7 @@ const ProjectTeamView = () => {
             Agregar Colaborador
           </button>
           <Link
-            to={`/projects/${projectId}`}
+            to={ROUTE_PATHS.PROJECTS.DETAIL.generate(projectId)}
             className='bg-slate-700 hover:bg-slate-600 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors rounded'>
             Regresar
           </Link>

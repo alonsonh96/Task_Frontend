@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query"
 import { changePassword } from "@/api/ProfileAPI"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
+import { ROUTE_PATHS } from "@/constants/routes"
 
 const ChangePasswordView = () => {
 
@@ -36,7 +37,7 @@ const ChangePasswordView = () => {
 
       // Sail only after success
       setTimeout(() => {
-        navigate('/auth/login')
+        navigate(ROUTE_PATHS.AUTH.LOGIN)
       }, 1500)
     }
   })
@@ -89,7 +90,7 @@ const ChangePasswordView = () => {
             <input
               id="password"
               type="password"
-              placeholder="Nuevo contraseña"
+              placeholder="Nueva contraseña"
               className="w-full p-3  border border-gray-200"
               {...register("password", {
                 required: "La nueva contraseña es obligatoria",

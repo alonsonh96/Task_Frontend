@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import ProjectForm from "@/components/projects/ProjectForm";
 import type { ProjectFormData } from "@/types/index";
 import { createProject } from "@/api/ProjectAPI";
+import { ROUTE_PATHS } from "@/constants/routes";
 
 const CreateProjectView = () => {
 
@@ -28,7 +29,7 @@ const CreateProjectView = () => {
     },
     onSuccess: (response) => {
       toast.success(response.message)
-      navigate('/')
+      navigate(ROUTE_PATHS.HOME)
     }
   })
 
@@ -46,7 +47,7 @@ const CreateProjectView = () => {
         </p>
         <nav className="my-5">
           <Link
-            to="/"
+            to={ROUTE_PATHS.HOME}
             className="bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors"
           >
             Volver a proyectos

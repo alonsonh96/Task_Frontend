@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import type { ConfirmToken } from "@/types/index";
 import { confirmAccount } from "@/api/AuthAPI";
 import { toast } from "react-toastify";
+import { ROUTE_PATHS } from "@/constants/routes";
 
 
 const ConfirmAccoutView = () => {
@@ -53,7 +54,7 @@ const ConfirmAccoutView = () => {
 
       <nav className="mt-10 flex flex-col space-y-4">
         <Link
-          to='/auth/request-code'
+          to={ROUTE_PATHS.AUTH.REQUEST_CODE}
           className="text-center text-gray-300 font-normal"
         >
           Solicitar un nuevo Código

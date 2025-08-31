@@ -9,6 +9,7 @@ import { Bars3Icon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import type { User } from "../types";
 import { useAuth } from "@/hooks/useAuth";
+import { ROUTE_PATHS } from "@/constants/routes";
 
 type NavMenuProps = {
   user: User
@@ -41,7 +42,7 @@ const NavMenu = ( { user } : NavMenuProps  ) => {
             <Link to="/profile" className="block p-2 hover:bg-slate-700 hover:text-white transition-colors cursor-pointer w-full text-center">
               Mi Perfil
             </Link>
-            <Link to="/" className="block p-2 hover:bg-slate-700 hover:text-white transition-colors cursor-pointer w-full text-center">
+            <Link to={ROUTE_PATHS.HOME} className="block p-2 hover:bg-slate-700 hover:text-white transition-colors cursor-pointer w-full text-center">
               Mis Proyectos
             </Link>
             <button

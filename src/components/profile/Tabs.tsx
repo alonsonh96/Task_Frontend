@@ -1,9 +1,10 @@
+import { ROUTE_PATHS } from '@/constants/routes'
 import { FingerPrintIcon, UserIcon } from '@heroicons/react/20/solid'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const tabs = [
-    { name: 'Mi Cuenta', href: '/profile', icon: UserIcon },
-    { name: 'Cambiar Password', href: '/profile/password', icon: FingerPrintIcon },
+    { name: 'Mi Cuenta', href: ROUTE_PATHS.PROFILE.VIEW, icon: UserIcon },
+    { name: 'Cambiar Password', href: ROUTE_PATHS.PROFILE.PASSWORD, icon: FingerPrintIcon },
 ]
 
 function classNames(...classes: string[]) {

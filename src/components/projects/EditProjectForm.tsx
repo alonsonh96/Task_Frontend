@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateProject } from "@/api/ProjectAPI";
 import { toast } from "react-toastify";
+import { ROUTE_PATHS } from "@/constants/routes";
 
 type EditProjectFormProps = {
     data: ProjectFormData,
@@ -38,7 +39,7 @@ const EditProjectForm = ({ data, projectId } : EditProjectFormProps ) => {
         queryClient.invalidateQueries({ queryKey: ['projects'] });
         queryClient.invalidateQueries({ queryKey: ['editProject', projectId] });
         toast.success(data.message)
-        navigate('/')
+        navigate(ROUTE_PATHS.HOME)
     }
   })
 
@@ -60,7 +61,7 @@ const EditProjectForm = ({ data, projectId } : EditProjectFormProps ) => {
         </p>
         <nav className="my-5">
           <Link
-            to="/"
+            to={ROUTE_PATHS.HOME}
             className="bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl font-bold cursor-pointer transition-colors"
           >
             Volver a proyectos

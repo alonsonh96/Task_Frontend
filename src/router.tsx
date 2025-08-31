@@ -18,6 +18,7 @@ import ProfileLayout from './layouts/ProfileLayout'
 import ProtectedRoute from './routing/ProtectedRoute'
 import PublicRoute from './routing/PublicRoute'
 import NotFoundView from './views/notFound/NotFoundView'
+import { ROUTE_PATHS } from './constants/routes'
 
 export default function Router() {
     return(
@@ -28,15 +29,15 @@ export default function Router() {
                         <AppLayout/>
                     </ProtectedRoute>
                 }>
-                    <Route path='/' element={<DashboardView/>} index/>
-                    <Route path='/projects/create' element={<CreateProjectView/>}/>
-                    <Route path='/projects/:projectId' element={<ProjectDetailsView/>}/>
-                    <Route path='/projects/:projectId/edit' element={<EditProjectView/>}/>
-                    <Route path='/projects/:projectId/team' element={<ProjectTeamView/>}/>
+                    <Route path={ROUTE_PATHS.HOME} element={<DashboardView/>} index/>
+                    <Route path={ROUTE_PATHS.PROJECTS.CREATE} element={<CreateProjectView/>}/>
+                    <Route path={ROUTE_PATHS.PROJECTS.DETAIL.path} element={<ProjectDetailsView/>}/>
+                    <Route path={ROUTE_PATHS.PROJECTS.EDIT.path} element={<EditProjectView/>}/>
+                    <Route path={ROUTE_PATHS.PROJECTS.TEAM} element={<ProjectTeamView/>}/>
                     
                     <Route element={<ProfileLayout/>}>
-                        <Route path='/profile' element={<ProfileView/>}/>
-                        <Route path='/profile/password' element={<ChangePasswordView/>}/>
+                        <Route path={ROUTE_PATHS.PROFILE.VIEW} element={<ProfileView/>}/>
+                        <Route path={ROUTE_PATHS.PROFILE.PASSWORD} element={<ChangePasswordView/>}/>
                     </Route>
                     
                 </Route>
@@ -45,12 +46,12 @@ export default function Router() {
                         <AuthLayout/>
                     </PublicRoute>
                 }>
-                    <Route path='/auth/login' element={<LoginView/>}/>
-                    <Route path='/auth/register' element={<RegisterView/>}/>
-                    <Route path='/auth/confirm-account' element={<ConfirmAccoutView/>}/>
-                    <Route path='/auth/request-code' element={<RequestNewCodeView/>}/>
-                    <Route path='/auth/forgot-password' element={<ForgotPasswordView/>}/>
-                    <Route path='/auth/new-password' element={<NewPasswordView/>}/>
+                    <Route path={ROUTE_PATHS.AUTH.LOGIN} element={<LoginView/>}/>
+                    <Route path={ROUTE_PATHS.AUTH.REGISTER} element={<RegisterView/>}/>
+                    <Route path={ROUTE_PATHS.AUTH.CONFIRM} element={<ConfirmAccoutView/>}/>
+                    <Route path={ROUTE_PATHS.AUTH.REQUEST_CODE} element={<RequestNewCodeView/>}/>
+                    <Route path={ROUTE_PATHS.AUTH.FORGOT_PASSWORD} element={<ForgotPasswordView/>}/>
+                    <Route path={ROUTE_PATHS.AUTH.NEW_PASSWORD} element={<NewPasswordView/>}/>
                 </Route>
                 <Route path="*" element={<NotFoundView />} />
             </Routes>

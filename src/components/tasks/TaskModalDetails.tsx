@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { formatDateTime } from '@/utils/utils';
 import type { TaskStatus } from '@/types/index';
 import { NotesPanel } from '../notes/NotesPanel';
+import { ROUTE_PATHS } from '@/constants/routes';
 
 const TaskModalDetails = () => {
 
@@ -60,7 +61,7 @@ const TaskModalDetails = () => {
   } 
 }, [isError, error]);
 
-  if (isError) return <Navigate to={`/projects/${projectId}`}/>
+  if (isError) return <Navigate to={ROUTE_PATHS.PROJECTS.DETAIL.generate(projectId)}/>
 
 
   if(data) return (

@@ -5,6 +5,7 @@ import ErrorMessage from "@/components/ErrorMessage";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { updatePasswordWithToken } from "@/api/AuthAPI";
+import { ROUTE_PATHS } from "@/constants/routes";
 
 
 type NewPasswordFormDataProps = {
@@ -29,7 +30,7 @@ const NewPasswordFormData = ( { token }  : NewPasswordFormDataProps ) => {
         onSuccess: (data) => {
             toast.success(data.message)
             reset()
-            navigate('/auth/login')
+            navigate(ROUTE_PATHS.AUTH.LOGIN)
         }
     })
 
@@ -57,13 +58,13 @@ const NewPasswordFormData = ( { token }  : NewPasswordFormDataProps ) => {
 
                 <input
                     type='password'
-                    placeholder='Password de Registro'
+                    placeholder='Contraseña de registro'
                     className='w-full p-3  border-gray-300 border'
                     {...register('password', {
-                        required: 'El Password es obligatorio',
+                        required: 'La contraseña es obligatoria',
                         minLength: {
                             value: 8,
-                            message: 'El Password debe ser mínimo de 8 caracteres'
+                            message: 'La contraseña debe ser mínimo de 8 caracteres'
                         }
                     })}
                 />
@@ -78,12 +79,12 @@ const NewPasswordFormData = ( { token }  : NewPasswordFormDataProps ) => {
                 <input
                     id='password_confirmation'
                     type='password'
-                    placeholder='Repite Password de Registro'
+                    placeholder='Repetir la contraseña de registro'
                     className='w-full p-3  border-gray-300 border'
                     {...register('password_confirmation', {
-                        required: 'Repetir Password es obligatorio',
+                        required: 'Repetir contraseña es obligatorio',
                         validate: value =>
-                            value === password || 'Los Passwords no son iguales'
+                            value === password || 'Las contraseñas no son iguales'
                     })}
                 />
 
@@ -94,7 +95,7 @@ const NewPasswordFormData = ( { token }  : NewPasswordFormDataProps ) => {
 
             <input
                 type='submit'
-                value='Establecer Password'
+                value='Establecer contraseña'
                 className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3  text-white font-black  text-xl cursor-pointer'
             />
         </form>

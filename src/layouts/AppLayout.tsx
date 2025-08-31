@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Logo from "@/components/Logo";
 import NavMenu from "@/components/NavMenu";
 import { useAuth } from "@/hooks/useAuth";
+import { ROUTE_PATHS } from "@/constants/routes";
 
 const AppLayout = () => {
 
@@ -14,7 +15,7 @@ const AppLayout = () => {
       <header className="bg-gray-800 py-5">
         <div className="max-w-screen-2xl mx-auto flex lg:flex-row justify-between items-center">
           <div className="w-64 w-">
-            <Link to="/" className="flex items-center gap-2">
+            <Link to={ROUTE_PATHS.HOME} className="flex items-center gap-2">
               <Logo />
             </Link>
           </div>

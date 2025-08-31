@@ -1,9 +1,17 @@
+import path from "path";
+
 export const ROUTE_PATHS = {
     HOME: '/',
     PROJECTS: {
         CREATE: '/projects/create',
-        DETAIL: '/projects/:projectId',
-        EDIT: '/projects/:projectId/edit',
+        DETAIL: {
+            path: '/projects/:projectId',
+            generate: (projectId: string) => `/projects/${projectId}`
+        },
+        EDIT: {
+            path: '/projects/:projectId/edit',
+            generate: (projectId: string) => `/projects/${projectId}/edit`
+        },
         TEAM: '/projects/:projectId/team', 
     },
     PROFILE: {

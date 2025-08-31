@@ -5,6 +5,7 @@ import type { RequestConfirmationCodeForm } from "../../types";
 import ErrorMessage from "@/components/ErrorMessage";
 import { requestConfirmationCode } from "@/api/AuthAPI";
 import { toast } from "react-toastify";
+import { ROUTE_PATHS } from "@/constants/routes";
 
 const RequestNewCodeView = () => {
 
@@ -74,13 +75,13 @@ const RequestNewCodeView = () => {
 
             <nav className="mt-10 flex flex-col space-y-4">
                 <Link
-                    to='/auth/login'
+                    to={ROUTE_PATHS.AUTH.LOGIN}
                     className="text-center text-gray-300 font-normal"
                 >
                     ¿Ya tienes cuenta? Iniciar Sesión
                 </Link>
                 <Link
-                    to='/auth/forgot-password'
+                    to={ROUTE_PATHS.AUTH.FORGOT_PASSWORD}
                     className="text-center text-gray-300 font-normal"
                 >
                     ¿Olvidaste tu contraseña? Reestablecer

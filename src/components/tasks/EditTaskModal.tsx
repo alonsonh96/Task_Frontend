@@ -34,9 +34,6 @@ const EditTaskModal = ({ data, taskId } : EditTaskModalProps) => {
          keysToInvalidate.forEach((key) => {
             queryClient.invalidateQueries({ queryKey: key });
         });
-        // queryClient.invalidateQueries({queryKey: ["editProject", projectId]});
-        // queryClient.invalidateQueries({queryKey: ["task", taskId]});
-        // queryClient.invalidateQueries({queryKey: ["project", projectId]});
         toast.success(data.message);
         reset();
         navigate(location.pathname, {replace: true});

@@ -8,6 +8,7 @@
 import { useAuth } from '@/hooks/useAuth';
 import { isManager } from '@/utils/policies';
 import { useMemo } from 'react';
+import { ROUTE_PATHS } from '@/constants/routes';
 
   const ProjectDetailsView = () => {
 
@@ -26,7 +27,7 @@ import { useMemo } from 'react';
     const canEdit = useMemo(() => data?.manager === user?.data._id, [data, user])
     
     if (isLoading && authLoading) return "Cargando";
-    if (isError) return <Navigate to="/404"/>;
+    if (isError) return <Navigate to={ROUTE_PATHS.ERROR.NOT_FOUND}/>;
 
     if(data && user) return (
       <>

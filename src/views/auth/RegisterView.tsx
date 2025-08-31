@@ -5,6 +5,7 @@ import ErrorMessage from "@/components/ErrorMessage";
 import { Link } from "react-router-dom";
 import { createAccount } from "@/api/AuthAPI";
 import { toast } from "react-toastify";
+import { ROUTE_PATHS } from "@/constants/routes";
 
 const RegisterView = () => {
 
@@ -89,17 +90,17 @@ const RegisterView = () => {
         <div className="flex flex-col gap-5">
           <label
             className="font-normal text-2xl"
-          >Password</label>
+          >Contraseña</label>
 
           <input
             type="password"
-            placeholder="Password de Registro"
+            placeholder="Contraseña de registro"
             className="w-full p-3  border-gray-300 border"
             {...register("password", {
-              required: "El Password es obligatorio",
+              required: "La contraseña es obligatorio",
               minLength: {
                 value: 8,
-                message: 'El Password debe ser mínimo de 8 caracteres'
+                message: 'La contraseña debe ser mínimo de 8 caracteres'
               }
             })}
           />
@@ -111,16 +112,16 @@ const RegisterView = () => {
         <div className="flex flex-col gap-5">
           <label
             className="font-normal text-2xl"
-          >Repetir Password</label>
+          >Repetir contraseña</label>
 
           <input
             id="password_confirmation"
             type="password"
-            placeholder="Repite Password de Registro"
+            placeholder="Repite tu contraseña de registro"
             className="w-full p-3  border-gray-300 border"
             {...register("password_confirmation", {
-              required: "Repetir Password es obligatorio",
-              validate: value => value === password || 'Los Passwords no son iguales'
+              required: "Repetir contraseña es obligatorio",
+              validate: value => value === password || 'Las contraseñas no son iguales'
             })}
           />
 
@@ -136,11 +137,11 @@ const RegisterView = () => {
         />
       </form>
       <nav className="mt-10 flex flex-col mx-auto space-y-4">
-        <Link to='/auth/login' className="text-center text-gray-300 font-normal mx-auto">
+        <Link to={ROUTE_PATHS.AUTH.LOGIN} className="text-center text-gray-300 font-normal mx-auto">
           ¿Ya tienes cuenta?
           <span className="font-bold underline">Iniciar sesión</span>
         </Link>
-        <Link to='/auth/forgot-password' className="text-center text-gray-300 font-normal mx-auto">
+        <Link to={ROUTE_PATHS.AUTH.FORGOT_PASSWORD} className="text-center text-gray-300 font-normal mx-auto">
           ¿Olviaste tu contraseña?
           <span className="font-bold underline ml-0.5">Reestablecer</span>
         </Link>
