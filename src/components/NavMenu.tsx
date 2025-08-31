@@ -6,10 +6,9 @@ import {
 } from "@headlessui/react";
 import { Fragment } from 'react'
 import { Bars3Icon } from "@heroicons/react/20/solid";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import type { User } from "../types";
-import { logoutUser } from "@/api/AuthAPI";
-import { useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "@/hooks/useAuth";
 
 type NavMenuProps = {
   user: User
@@ -17,17 +16,9 @@ type NavMenuProps = {
 
 const NavMenu = ( { user } : NavMenuProps  ) => {
 
-  const queryClient = useQueryClient()
-  const navigate = useNavigate()
+  const { logout } = useAuth()
 
-  const logout = async() => {
-    await logoutUser()
-    if(await logoutUser()){
-      queryClient.invalidateQueries({ queryKey: ['user'] })
-      navigate('/api/auth/login')
-    }
-    
-  }
+  const handleLogout = () => logout()
 
   return (
     <Popover className="relative">
@@ -56,7 +47,7 @@ const NavMenu = ( { user } : NavMenuProps  ) => {
             <button
               className="block p-2 hover:bg-slate-700 hover:text-white transition-colors cursor-pointer w-full"
               type="button"
-              onClick={logout}
+              onClick={handleLogout}
             >
               Cerrar Sesión
             </button>
