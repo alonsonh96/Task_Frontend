@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import type { UserLoginForm } from "@/types/index";
 import ErrorMessage from "@/components/ErrorMessage";
 import { useMutation } from "@tanstack/react-query";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { authenticateUser } from "@/api/AuthAPI";
 import { toast } from "react-toastify";
 
@@ -13,6 +13,7 @@ const LoginView = () => {
     password: '',
   }
   const navigate = useNavigate();
+  const location = useLocation()
   const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialValues })
 
   const { mutate } = useMutation({
@@ -22,7 +23,8 @@ const LoginView = () => {
     },
     onSuccess: () => {
       toast.success('Iniciando sesión')
-      navigate('/')
+      const redirectTo = location.state?.from?.pathname || '/'
+      navigate(redirectTo, { replace: true })
     },
   })
 

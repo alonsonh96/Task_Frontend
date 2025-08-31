@@ -27,8 +27,11 @@ API.interceptors.response.use(
     async (error: AxiosError) => {
         const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
-        if (error.response?.status === 401 && 
+        const isAuthRoute = originalRequest.url?.includes('/auth/');
+
+        if (error.response?.status === 401 &&
             !originalRequest.url?.includes('/auth/refresh') &&
+            !isAuthRoute &&
             !originalRequest._retry) {
 
             if (isRefreshing) {

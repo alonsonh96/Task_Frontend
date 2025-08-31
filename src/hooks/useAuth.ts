@@ -8,7 +8,8 @@ export const useAuth = () => {
         queryKey: ['user'],
         queryFn: getUser,
         retry: 1,
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
+        staleTime: 5 * 60 * 1000,
     })
 
 

@@ -17,6 +17,7 @@ import ChangePasswordView from './views/profile/ChangePasswordView'
 import ProfileLayout from './layouts/ProfileLayout'
 import ProtectedRoute from './routing/ProtectedRoute'
 import PublicRoute from './routing/PublicRoute'
+import NotFoundView from './views/notFound/NotFoundView'
 
 export default function Router() {
     return(
@@ -51,6 +52,7 @@ export default function Router() {
                     <Route path='/auth/forgot-password' element={<ForgotPasswordView/>}/>
                     <Route path='/auth/new-password' element={<NewPasswordView/>}/>
                 </Route>
+                <Route path="*" element={<NotFoundView />} />
             </Routes>
         </BrowserRouter>
     )

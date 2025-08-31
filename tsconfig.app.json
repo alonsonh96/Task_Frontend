@@ -8,15 +8,20 @@
     "skipLibCheck": true,
     "baseUrl": "src",
      "paths": {
-        "@/components/*": ["components/*"],
-        "@/views/*": ["views/*"],
-        "@/layouts/*": ["layouts/*"],
         "@/api/*": ["api/*"],
-        "@/types/*": ["types/*"],
-        "@/lib/*": ["lib/*"],
-        "@/utils/*": ["utils/*"],
-        "@/locales/*": ["locales/*"],
+        "@/components/*": ["components/*"],
+        "@/constants/*": ["constants/*"],
         "@/hooks/*": ["hooks/*"],
+        "@/layouts/*": ["layouts/*"],
+        "@/lib/*": ["lib/*"],
+        "@/locales/*": ["locales/*"],
+        "@/routing/*": ["routing/*"],
+        "@/views/*": ["views/*"],
+        "@/types/*": ["types/*"],
+        "@/utils/*": ["utils/*"],
+        
+        
+        
      },
 
     /* Bundler mode */
