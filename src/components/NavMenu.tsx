@@ -7,9 +7,9 @@ import {
 import { Fragment } from 'react'
 import { Bars3Icon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
 import { ROUTE_PATHS } from "@/constants/routes";
 import type { User } from "../types";
+import { useLogout } from "@/hooks/useAuthMutations";
 
 type NavMenuProps = {
   user: User
@@ -17,9 +17,9 @@ type NavMenuProps = {
 
 const NavMenu = ( { user } : NavMenuProps  ) => {
 
-  const { logout } = useAuth()
+   const logoutMutation = useLogout();
 
-  const handleLogout = () => logout()
+  const handleLogout = () => logoutMutation.mutate()
 
   return (
     <Popover className="relative">

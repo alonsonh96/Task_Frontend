@@ -1,10 +1,8 @@
-import { validateToken } from '@/api/AuthAPI';
 import { ROUTE_PATHS } from '@/constants/routes';
+import { useValidateToken } from '@/hooks/useAuthMutations';
 import type { ConfirmToken } from '@/types/auth';
 import { PinInput, PinInputField } from '@chakra-ui/pin-input';
-import { useMutation } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 type NewPasswordTokenProps = {
     token: ConfirmToken['token'],
@@ -14,17 +12,7 @@ type NewPasswordTokenProps = {
 
 const NewPasswordToken = ( { token, setToken, setIsValidToken } : NewPasswordTokenProps ) => {
 
-    const { mutate } = useMutation({
-        mutationFn: validateToken,
-        onError: (error) => {
-            toast.error(error.message)
-            setToken('');
-        },
-        onSuccess: (data) => {
-            toast.success(data.message)
-            setIsValidToken(true)
-        },
-    })
+    const { mutate } = useValidateToken(setIsValidToken)
 
     const handleChange = (token: ConfirmToken['token']) => setToken(token)
 

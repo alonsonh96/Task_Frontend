@@ -1,11 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ErrorMessage from "@/components/ErrorMessage";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-toastify";
-import { updatePasswordWithToken } from "@/api/AuthAPI";
-import { ROUTE_PATHS } from "@/constants/routes";
 import type { ConfirmToken, NewPasswordForm } from "@/types/auth";
+import { useUpdatePasswordWithToken } from "@/hooks/useAuthMutations";
 
 
 type NewPasswordFormDataProps = {
@@ -15,37 +11,19 @@ type NewPasswordFormDataProps = {
 
 const NewPasswordFormData = ( { token }  : NewPasswordFormDataProps ) => {
 
-    const navigate = useNavigate()
     const initialValues: NewPasswordForm = {
         password: '',
         password_confirmation: '',
     }
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({ defaultValues: initialValues });
-
-    const { mutate } = useMutation({
-        mutationFn: updatePasswordWithToken,
-        onError: (error) => {
-            toast.error(error.message)
-        },
-        onSuccess: (data) => {
-            toast.success(data.message)
-            reset()
-            navigate(ROUTE_PATHS.AUTH.LOGIN)
-        }
-    })
-
-    const handleNewPassword = (formData: NewPasswordForm) => {
-        const data = {
-            formData,
-            token
-        }
-        mutate(data)
-    }
-
     const password = watch('password');
 
+    const { mutate } = useUpdatePasswordWithToken()
 
-
+    const handleNewPassword = (formData: NewPasswordForm) => {
+        mutate({ formData, token })
+        reset()
+    }
 
     return (
         <form

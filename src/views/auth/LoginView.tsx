@@ -1,11 +1,9 @@
 import { useForm } from "react-hook-form";
 import ErrorMessage from "@/components/ErrorMessage";
-import { useMutation } from "@tanstack/react-query";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { authenticateUser } from "@/api/AuthAPI";
-import { toast } from "react-toastify";
 import { ROUTE_PATHS } from "@/constants/routes";
 import type { UserLoginForm } from "@/types/auth";
+import { useLogin } from "@/hooks/useAuthMutations";
 
 const LoginView = () => {
 
@@ -13,21 +11,10 @@ const LoginView = () => {
     email: '',
     password: '',
   }
-  const navigate = useNavigate();
-  const location = useLocation()
+
   const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialValues })
 
-  const { mutate } = useMutation({
-    mutationFn: authenticateUser,
-    onError: (error) => {
-      toast.error(error.message)
-    },
-    onSuccess: () => {
-      toast.success('Iniciando sesión')
-      const redirectTo = location.state?.from?.pathname || '/'
-      navigate(redirectTo, { replace: true })
-    },
-  })
+  const { mutate } = useLogin()
 
   const handleLogin = (formData: UserLoginForm) => {
     mutate(formData)
