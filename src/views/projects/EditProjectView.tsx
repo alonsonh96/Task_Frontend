@@ -1,8 +1,7 @@
 import { Navigate, useParams } from "react-router-dom"
-import { useQuery } from "@tanstack/react-query";
-import { getProjectsById } from "@/api/ProjectAPI";
 import EditProjectForm from "@/components/projects/EditProjectForm";
 import { ROUTE_PATHS } from "@/constants/routes";
+import { useProjectById } from "@/hooks/useProjects";
 
 
 const EditProjectView = () => {
@@ -10,11 +9,7 @@ const EditProjectView = () => {
   const params = useParams();
   const projectId = params.projectId!
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['editProject', projectId],
-    queryFn: () => getProjectsById(projectId),
-    retry: false
-  })
+  const { data, isLoading, isError } = useProjectById(projectId)
 
   if(isLoading) return 'Cargando...'
   if(isError) return <Navigate to={ROUTE_PATHS.ERROR.NOT_FOUND}/>

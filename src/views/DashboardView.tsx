@@ -8,12 +8,11 @@ import {
 } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { getProjects } from "@/api/ProjectAPI";
 import { useAuth } from "@/hooks/useAuth";
 import { isManager } from "@/utils/policies";
 import DeleteProjectModal from "@/components/projects/DeleteProjectModal";
 import { ROUTE_PATHS } from "@/constants/routes";
+import { useGetProjects } from "@/hooks/useProjects";
 
 const DashboardView = () => {
 
@@ -21,12 +20,9 @@ const DashboardView = () => {
   const navigate = useNavigate()
 
   const { data: user } = useAuth()
-  const { data } = useQuery({
-    queryKey: ["projects"],
-    queryFn: getProjects,
-  });
+  const { data: projectsList } = useGetProjects()
 
-  if (data && user)
+  if (projectsList && user)
     return (
       <>
         <h1 className="text-5xl font-black">Mis proyectos</h1>
@@ -41,12 +37,12 @@ const DashboardView = () => {
             Nuevo Proyecto
           </Link>
         </nav>
-        {data.length ? (
+        {projectsList.length ? (
           <ul
             role="list"
             className="divide-y divide-gray-100 border border-gray-100 mt-10 bg-white shadow-lg"
           >
-            {data.map((project) => (
+            {projectsList.map((project) => (
               <li
                 key={project._id}
                 className="flex justify-between gap-x-6 px-5 py-10 bg-slate-200 border-slate-700 mb-1"

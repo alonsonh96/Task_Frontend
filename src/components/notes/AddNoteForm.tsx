@@ -15,12 +15,12 @@ export const AddNoteForm = () => {
   const params = useParams()
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
+  const queryClient = useQueryClient()
 
   const projectId = params.projectId!
   const taskId = queryParams.get('viewTask')!
 
   const { register, handleSubmit, reset, formState: {errors} } = useForm({defaultValues: initialValues})
-  const queryClient = useQueryClient()
 
   const { mutate } = useMutation({
     mutationFn: createNote,
@@ -29,13 +29,13 @@ export const AddNoteForm = () => {
     },
     onSuccess: (data) => {
         toast.success(data.message)
+        reset();
         queryClient.invalidateQueries({ queryKey: ["task", taskId] });
     }
   })
 
   const hanldeAddNote = (formData : NoteFormData) => {
-    mutate({projectId, taskId, formData})
-    reset()
+    mutate({ projectId, taskId, formData })
   }
 
   return (

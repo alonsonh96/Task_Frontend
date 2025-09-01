@@ -18,6 +18,7 @@ const NewPasswordToken = ( { token, setToken, setIsValidToken } : NewPasswordTok
         mutationFn: validateToken,
         onError: (error) => {
             toast.error(error.message)
+            setToken('');
         },
         onSuccess: (data) => {
             toast.success(data.message)
