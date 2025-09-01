@@ -2,31 +2,18 @@
 import { Fragment } from 'react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteProject } from '@/api/ProjectAPI';
-import { toast } from 'react-toastify';
+import { useDeleteProject } from '@/hooks/useProjects';
 
 const DeleteProjectModal = () => {
 
   const location = useLocation()
   const navigate = useNavigate()
-  const queryClient = useQueryClient();
 
   const queryParams = new URLSearchParams(location.search);
   const deleteProjectId = queryParams.get('deleteProject')!;
   const show = deleteProjectId ? true : false
 
-    const { mutate } = useMutation({
-    mutationFn: deleteProject,
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["projects"] });
-      navigate(location.pathname, { replace: true })
-      toast.success(data.message);
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  })
+    const { mutate } = useDeleteProject()
 
     return (
         <Transition appear show={show} as={Fragment}>

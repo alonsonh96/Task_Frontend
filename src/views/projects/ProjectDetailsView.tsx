@@ -1,6 +1,4 @@
   import { Navigate, useParams, useNavigate, Link } from 'react-router-dom'
-  import { useQuery } from "@tanstack/react-query";
-  import { getProjectsById } from '@/api/ProjectAPI';
   import AddTaskModal from '../../components/tasks/AddTaskModal';
   import TaskList from '../../components/tasks/TaskList';
   import EditTaskData from '../../components/tasks/EditTaskData';
@@ -9,6 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { isManager } from '@/utils/policies';
 import { useMemo } from 'react';
 import { ROUTE_PATHS } from '@/constants/routes';
+import { useProjectById } from '@/hooks/useProjects';
 
   const ProjectDetailsView = () => {
 
@@ -17,12 +16,8 @@ import { ROUTE_PATHS } from '@/constants/routes';
     const navigate = useNavigate();
     const params = useParams();
     const projectId = params.projectId;
-    const { data, isLoading, isError } = useQuery({
-      queryKey: ["project", projectId],
-      queryFn: () => getProjectsById(projectId!),
-      enabled: !!projectId,
-      retry: false,
-    });
+
+    const { data, isLoading, isError } = useProjectById(projectId!);
 
     const canEdit = useMemo(() => data?.manager === user?.data._id, [data, user])
     

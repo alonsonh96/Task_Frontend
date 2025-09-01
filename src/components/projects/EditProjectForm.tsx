@@ -1,11 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ProjectForm from "./ProjectForm";
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateProject } from "@/api/ProjectAPI";
-import { toast } from "react-toastify";
 import { ROUTE_PATHS } from "@/constants/routes";
 import type { Project, ProjectFormData } from "@/types/projects";
+import { useUpdateProject } from "@/hooks/useProjects";
 
 type EditProjectFormProps = {
     data: ProjectFormData,
@@ -13,8 +11,6 @@ type EditProjectFormProps = {
 }
 
 const EditProjectForm = ({ data, projectId } : EditProjectFormProps ) => {
-
-  const navigate = useNavigate();
 
   const initialValues : ProjectFormData= {
     projectName: data.projectName,
@@ -28,29 +24,10 @@ const EditProjectForm = ({ data, projectId } : EditProjectFormProps ) => {
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
 
-  const queryClient = useQueryClient();
+  const { mutate } = useUpdateProject(projectId);
 
-  const { mutate } = useMutation({
-    mutationFn: updateProject,
-    onError: (error) => {
-        toast.error(error.message)
-    },
-    onSuccess: (data) => {
-        queryClient.invalidateQueries({ queryKey: ['projects'] });
-        queryClient.invalidateQueries({ queryKey: ['editProject', projectId] });
-        toast.success(data.message)
-        navigate(ROUTE_PATHS.HOME)
-    }
-  })
+  const handleForm = (formData : ProjectFormData) => mutate({ formData, projectId });
 
-
-  const handleForm = (formData : ProjectFormData) => {
-    const data = {
-        formData,
-        projectId
-    }
-    mutate(data)
-  }
 
   return (
     <>
