@@ -1,4 +1,3 @@
-import type { ConfirmToken, NewPasswordForm } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ErrorMessage from "@/components/ErrorMessage";
@@ -6,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { updatePasswordWithToken } from "@/api/AuthAPI";
 import { ROUTE_PATHS } from "@/constants/routes";
+import type { ConfirmToken, NewPasswordForm } from "@/types/auth";
 
 
 type NewPasswordFormDataProps = {

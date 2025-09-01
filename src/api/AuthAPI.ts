@@ -1,16 +1,21 @@
 import API from "@/lib/axios";
-import { isAxiosError } from "axios";
-import { userResponseSchema, type ConfirmToken, type ForgotPasswordForm, type NewPasswordForm, type RequestConfirmationCodeForm, type UserLoginForm, type UserRegistrationForm } from "../types";
-
+import { hanldeApiError } from "@/lib/axios-helpers";
+import type { 
+    ConfirmToken, 
+    ForgotPasswordForm, 
+    NewPasswordForm, 
+    RequestConfirmationCodeForm, 
+    UserLoginForm, 
+    UserRegistrationForm 
+} from "@/types/auth";
+import { userResponseSchema } from "@/types/user";
 
 export async function createAccount(formData  : UserRegistrationForm) {
     try {
         const { data } = await API.post<{ message: string }>(`/auth/create-account`, formData)
         return data
     } catch (error) {
-        if (isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
-        }
+        hanldeApiError(error)
     }
 }
 
@@ -20,9 +25,7 @@ export async function confirmAccount(formData: ConfirmToken){
         const { data } = await API.post<{message: string}>(`/auth/confirm-account`, formData)
         return data
     } catch (error) {
-        if (isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
-        }
+        hanldeApiError(error)
     }
 }
 
@@ -32,9 +35,7 @@ export async function requestConfirmationCode(formData: RequestConfirmationCodeF
         const { data } = await API.post<{ message: string }>(`/auth/request-code`, formData)
         return data
     } catch (error) {
-        if (isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
-        }
+        hanldeApiError(error)
     }
 }
 
@@ -44,9 +45,7 @@ export async function authenticateUser(formData: UserLoginForm){
         const { data } = await API.post(`/auth/login`, formData)
         return data
     } catch (error) {
-        if (isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
-        }
+        hanldeApiError(error)
     }
 }
 
@@ -56,9 +55,7 @@ export async function forgotPassword(formData : ForgotPasswordForm){
         const { data } = await API.post(`/auth/forgot-password`, formData)
         return data
     } catch (error) {
-        if (isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
-        }
+        hanldeApiError(error)
     }
 }
 
@@ -68,9 +65,7 @@ export async function validateToken(formData : ConfirmToken){
         const { data } = await API.post(`/auth/validate-token`, formData)
         return data
     } catch (error) {
-        if (isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
-        }
+        hanldeApiError(error)
     }
 }
 
@@ -80,9 +75,7 @@ export async function updatePasswordWithToken({ formData, token } : { formData :
         const { data } = await API.post(`/auth/update-password/${token}`, formData)
         return data
     } catch (error) {
-        if (isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
-        }
+        hanldeApiError(error)
     }
 }
 
@@ -93,9 +86,7 @@ export async function getUser(){
         const response = userResponseSchema.safeParse(data)
         if(response.success) return response.data
     } catch (error) {
-        if (isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
-        }
+        hanldeApiError(error)
     }
 }
 
@@ -105,8 +96,6 @@ export async function logoutUser(){
        await API.post('auth/logout')
        return true
     } catch (error) {
-        if (isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
-        }
+        hanldeApiError(error)
     }
 }

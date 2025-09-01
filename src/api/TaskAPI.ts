@@ -1,6 +1,6 @@
 import API from "@/lib/axios";
 import { taskResponseSchema, type Project, type Task, type TaskFormData } from "../types";
-import { isAxiosError } from "axios";
+import { hanldeApiError } from "@/lib/axios-helpers";
 
 type TaskAPI = {
   formData: TaskFormData;
@@ -14,9 +14,7 @@ export async function createTask( {formData, projectId}: Pick<TaskAPI, "formData
         const { data } = await API.post(`/projects/${projectId}/tasks`, formData);
         return data;
     } catch (error) {
-        if (isAxiosError(error) && error.response) {
-        throw new Error(error.response.data.message);
-        }
+        hanldeApiError(error)
     }
 }
 
@@ -27,9 +25,7 @@ export async function getTaskById ({projectId , taskId} : Pick<TaskAPI, "project
         const response = taskResponseSchema.safeParse(data);
         if(response.success) return response.data;
     } catch (error) {
-        if (isAxiosError(error) && error.response) {
-        throw new Error(error.response.data.message);
-        }
+        hanldeApiError(error)
     }
 }
 
@@ -39,9 +35,7 @@ export async function updateTask({ projectId, taskId, formData } : Pick<TaskAPI,
         const { data } = await API.put(`/projects/${projectId}/tasks/${taskId}`, formData);
         return data;
     } catch (error) {
-        if (isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
-        }
+        hanldeApiError(error)
     }
 }
 
@@ -51,9 +45,7 @@ export async function deleteTask({ projectId, taskId } : Pick<TaskAPI, "projectI
         const { data } = await API.delete(`/projects/${projectId}/tasks/${taskId}`);
         return data;
     } catch (error) {
-        if (isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
-        }
+        hanldeApiError(error)
     }
 }
 
@@ -63,8 +55,6 @@ export async function updateTaskStatus({ projectId, taskId, status }: Pick<TaskA
         const { data } = await API.post(`/projects/${projectId}/tasks/${taskId}/status`, { status });
         return data;
     } catch (error) {
-        if (isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
-        }
+        hanldeApiError(error)
     }
 }

@@ -1,11 +1,11 @@
 import { Fragment } from "react";
-import type { Task } from "@/types/index";
 import { Menu, MenuButton, Transition, MenuItems, MenuItem} from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { deleteTask } from "@/api/TaskAPI";
+import type { Task } from "@/types/task";
 
 type TaskCardProps = {
     task: Task;

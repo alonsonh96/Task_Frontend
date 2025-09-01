@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form"
 import ErrorMessage from "@/components/ErrorMessage"
-import type { UpdateCurrentUserPasswordForm } from "@/types/index"
 import { useMutation } from "@tanstack/react-query"
 import { changePassword } from "@/api/ProfileAPI"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 import { ROUTE_PATHS } from "@/constants/routes"
+import type { UpdateCurrentUserPasswordForm } from "@/types/auth"
 
 const ChangePasswordView = () => {
 

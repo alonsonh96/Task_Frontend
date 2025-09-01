@@ -6,9 +6,9 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getTaskById, updateTaskStatus } from '@/api/TaskAPI';
 import { toast } from 'react-toastify';
 import { formatDateTime } from '@/utils/utils';
-import type { TaskStatus } from '@/types/index';
 import { NotesPanel } from '../notes/NotesPanel';
 import { ROUTE_PATHS } from '@/constants/routes';
+import type { TaskStatus } from '@/types/task';
 
 const TaskModalDetails = () => {
 

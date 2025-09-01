@@ -1,7 +1,7 @@
 
 import NewPasswordFormData from '@/components/auth/NewPasswordFormData'
 import NewPasswordToken from '@/components/auth/NewPasswordToken'
-import type { ConfirmToken } from '@/types/index'
+import type { ConfirmToken } from '@/types/auth'
 import { useState } from 'react'
 
 const NewPasswordView = () => {

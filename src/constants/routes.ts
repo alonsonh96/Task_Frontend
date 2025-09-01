@@ -1,5 +1,3 @@
-import path from "path";
-
 export const ROUTE_PATHS = {
     HOME: '/',
     PROJECTS: {

@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import type { UserLoginForm } from "@/types/index";
 import ErrorMessage from "@/components/ErrorMessage";
 import { useMutation } from "@tanstack/react-query";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { authenticateUser } from "@/api/AuthAPI";
 import { toast } from "react-toastify";
 import { ROUTE_PATHS } from "@/constants/routes";
+import type { UserLoginForm } from "@/types/auth";
 
 const LoginView = () => {
 

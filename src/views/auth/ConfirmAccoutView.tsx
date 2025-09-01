@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import { PinInput, PinInputField } from "@chakra-ui/pin-input"
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import type { ConfirmToken } from "@/types/index";
 import { confirmAccount } from "@/api/AuthAPI";
 import { toast } from "react-toastify";
 import { ROUTE_PATHS } from "@/constants/routes";
+import type { ConfirmToken } from "@/types/auth";
 
 
 const ConfirmAccoutView = () => {

@@ -1,5 +1,5 @@
 import { addUserToProject } from '@/api/TeamAPI'
-import type { TeamMember } from '@/types/index'
+import type { TeamMember } from '@/types/team'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'

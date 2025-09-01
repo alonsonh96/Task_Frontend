@@ -1,5 +1,5 @@
+import type { Note } from '@/types/notes'
 import { AddNoteForm } from './AddNoteForm'
-import type { Note } from '@/types/index'
 import { NoteDetail } from './NoteDetail'
 
 type NotesPanelProps = {

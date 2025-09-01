@@ -9,10 +9,10 @@ import {
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import TaskForm from "../tasks/TaskForm";
-import type { TaskFormData } from "@/types/index";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTask } from "@/api/TaskAPI";
 import { toast } from "react-toastify";
+import type { TaskFormData } from "@/types/task";
 
 const AddTaskModal = () => {
 

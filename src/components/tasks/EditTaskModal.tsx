@@ -1,4 +1,3 @@
-import type { Task, TaskFormData } from "@/types/index";
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import { Fragment } from "react";
 import { useForm } from "react-hook-form";
@@ -7,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import TaskForm from "./TaskForm";
 import { updateTask } from "@/api/TaskAPI";
 import { toast } from "react-toastify";
+import type { Task, TaskFormData } from "@/types/task";
 
 type EditTaskModalProps = {
     data: Task;

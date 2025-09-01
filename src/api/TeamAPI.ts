@@ -1,15 +1,13 @@
-import { isAxiosError } from "axios";
 import API from "@/lib/axios";
-import { type TeamMemberForm, type Project, type TeamMember, teamMembersSchemaResponse, type ApiResponse } from "../types";
+import { teamMembersSchemaResponse, type ApiResponse, type Project, type TeamMember, type TeamMemberForm } from "../types";
+import { hanldeApiError } from "@/lib/axios-helpers";
 
 export async function findUserByEmail({ projectId, formData } : { projectId: Project['_id'], formData: TeamMemberForm }) {
     try {
         const { data } = await API.post(`/projects/${projectId}/team/find`, formData)
         return data
     } catch (error) {
-        if(isAxiosError(error) && error.response){
-            throw new Error(error.response.data.error)
-        }
+        hanldeApiError(error)
     }
 }
 
@@ -19,9 +17,7 @@ export async function addUserToProject({ projectId, id } : { projectId: Project[
         const { data } = await API.post(`/projects/${projectId}/team`, {id})
         return data
     } catch (error) {
-        if(isAxiosError(error) && error.response){
-            throw new Error(error.response.data.error)
-        }
+        hanldeApiError(error)
     }
 }
 
@@ -32,9 +28,7 @@ export async function getProjectTeam(projectId: Project['_id']){
         const response = teamMembersSchemaResponse.safeParse(data)
         return response.data?.data
     } catch (error) {
-        if(isAxiosError(error) && error.response){
-            throw new Error(error.response.data.error)
-        }
+        hanldeApiError(error)
     }
 }
 
@@ -44,8 +38,6 @@ export async function removeUserFromProject({ projectId, userId } : { projectId:
         const { data } = await API.delete<ApiResponse>(`/projects/${projectId}/team/${userId}`)
         return data
     } catch (error) {
-        if(isAxiosError(error) && error.response){
-            throw new Error(error.response.data.error)
-        }
+        hanldeApiError(error)
     }
 }

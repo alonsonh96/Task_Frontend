@@ -1,6 +1,6 @@
 import { deleteNote } from '@/api/NoteAPI'
 import { useAuth } from '@/hooks/useAuth'
-import type { Note } from '@/types/index'
+import type { Note } from '@/types/notes'
 import { formatDate } from '@/utils/utils'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useMemo } from 'react'

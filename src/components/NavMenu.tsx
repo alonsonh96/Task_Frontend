@@ -7,9 +7,9 @@ import {
 import { Fragment } from 'react'
 import { Bars3Icon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
-import type { User } from "../types";
 import { useAuth } from "@/hooks/useAuth";
 import { ROUTE_PATHS } from "@/constants/routes";
+import type { User } from "../types";
 
 type NavMenuProps = {
   user: User

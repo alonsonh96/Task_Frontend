@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query"
 import { toast } from "react-toastify";
 import ProjectForm from "@/components/projects/ProjectForm";
-import type { ProjectFormData } from "@/types/index";
 import { createProject } from "@/api/ProjectAPI";
 import { ROUTE_PATHS } from "@/constants/routes";
+import type { ProjectFormData } from "@/types/projects";
 
 const CreateProjectView = () => {
 

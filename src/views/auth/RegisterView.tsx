@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-import type { UserRegistrationForm } from "@/types/index";
 import ErrorMessage from "@/components/ErrorMessage";
 import { Link } from "react-router-dom";
 import { createAccount } from "@/api/AuthAPI";
 import { toast } from "react-toastify";
 import { ROUTE_PATHS } from "@/constants/routes";
+import type { UserRegistrationForm } from "@/types/auth";
 
 const RegisterView = () => {
 

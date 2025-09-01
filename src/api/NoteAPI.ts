@@ -1,6 +1,6 @@
-import { isAxiosError } from "axios";
 import API from "@/lib/axios";
 import type { Note, NoteFormData, Project, Task } from "../types";
+import { hanldeApiError } from "@/lib/axios-helpers";
 
 type NoteAPIType = {
     formData: NoteFormData,
@@ -15,9 +15,7 @@ export async function createNote({projectId, taskId, formData} : Pick<NoteAPITyp
        const { data } = await API.post(`/projects/${projectId}/tasks/${taskId}/notes`, formData)
        return data
     } catch (error) {
-        if(isAxiosError(error) && error.response){
-            throw new Error(error.response.data.error)
-        }
+        hanldeApiError(error)
     }
 }
 
@@ -27,8 +25,6 @@ export async function deleteNote({ projectId, taskId, noteId } : Pick<NoteAPITyp
         const { data } = await API.delete(`/projects/${projectId}/tasks/${taskId}/notes/${noteId}`)
         return data
     } catch (error) {
-        if(isAxiosError(error) && error.response){
-            throw new Error(error.response.data.error)
-        }
+        hanldeApiError(error)
     }
 }

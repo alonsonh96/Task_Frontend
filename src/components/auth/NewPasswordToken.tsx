@@ -1,6 +1,6 @@
 import { validateToken } from '@/api/AuthAPI';
 import { ROUTE_PATHS } from '@/constants/routes';
-import type { ConfirmToken } from '@/types/index';
+import type { ConfirmToken } from '@/types/auth';
 import { PinInput, PinInputField } from '@chakra-ui/pin-input';
 import { useMutation } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';

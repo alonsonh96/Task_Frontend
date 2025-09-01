@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form"
-import type { NoteFormData } from "@/types/index"
 import ErrorMessage from "../ErrorMessage"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "react-toastify"
 import { createNote } from "@/api/NoteAPI"
 import { useLocation, useParams } from "react-router-dom"
+import type { NoteFormData } from "@/types/notes"
 
 export const AddNoteForm = () => {
 
