@@ -1,11 +1,7 @@
 import { useForm } from "react-hook-form"
-import ErrorMessage from "@/components/ErrorMessage"
-import { useMutation } from "@tanstack/react-query"
-import { changePassword } from "@/api/ProfileAPI"
-import { toast } from "react-toastify"
-import { useNavigate } from "react-router-dom"
-import { ROUTE_PATHS } from "@/constants/routes"
 import type { UpdateCurrentUserPasswordForm } from "@/types/auth"
+import { useChangePasswordProfile } from "@/hooks/useProfileMutation"
+import ErrorMessage from "@/components/ErrorMessage"
 
 const ChangePasswordView = () => {
 
@@ -15,8 +11,6 @@ const ChangePasswordView = () => {
     password_confirmation: ''
   }
 
-  const navigate = useNavigate()
-
   const { register, 
           handleSubmit, 
           watch, 
@@ -25,22 +19,7 @@ const ChangePasswordView = () => {
 
   const password = watch('password')
 
-  const { mutate : changePasswordMutation, isPending} = useMutation({
-    mutationFn: changePassword,
-    onError: (error: any) => {
-      const errorMessage = error.message || 'Error al cambiar la contraseña'
-      toast.error(errorMessage)
-    },
-    onSuccess: (data) => {
-      const successMessage = data?.message || 'Contraseña cambiada exitosamente'
-      toast.success(successMessage)
-
-      // Sail only after success
-      setTimeout(() => {
-        navigate(ROUTE_PATHS.AUTH.LOGIN)
-      }, 1500)
-    }
-  })
+  const { mutate : changePasswordMutation, isPending} = useChangePasswordProfile()
 
   const handleChangePassword = (formData : UpdateCurrentUserPasswordForm) => { 
     changePasswordMutation(formData)
