@@ -1,11 +1,9 @@
-import { deleteNote } from '@/api/NoteAPI'
 import { useAuth } from '@/hooks/useAuth'
+import { useDeleteNote } from '@/hooks/useNoteMutation'
 import type { Note } from '@/types/notes'
 import { formatDate } from '@/utils/utils'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
-import { toast } from 'react-toastify'
 
 type NoteDetailProps = {
     note: Note
@@ -17,7 +15,6 @@ export const NoteDetail = ({ note } : NoteDetailProps) => {
 
   const canDelete = useMemo(() => data?.data._id === note.createdBy._id, [data])
 
-  const queryClient = useQueryClient();
   const params = useParams()
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -25,14 +22,7 @@ export const NoteDetail = ({ note } : NoteDetailProps) => {
   const taskId = queryParams.get('viewTask')!;
   const projectId = params.projectId!
 
-  const { mutate } = useMutation({
-    mutationFn: deleteNote,
-    onError: (error) => toast.error(error.message),
-    onSuccess: (data) => {
-        toast.success(data.messa)
-        queryClient.invalidateQueries({ queryKey: ["task", taskId] });
-    }
-  })
+  const { mutate } = useDeleteNote(taskId)
 
   if(isLoading) return 'Cargando ...'
 
