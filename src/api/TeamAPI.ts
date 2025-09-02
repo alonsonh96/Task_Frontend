@@ -2,9 +2,9 @@ import API from "@/lib/axios";
 import { teamMembersSchemaResponse, type ApiResponse, type Project, type TeamMember, type TeamMemberForm } from "../types";
 import { hanldeApiError } from "@/lib/axios-helpers";
 
-export async function findUserByEmail({ projectId, formData } : { projectId: Project['_id'], formData: TeamMemberForm }) {
+export async function addUserToProject({ projectId, id } : { projectId: Project['_id'], id: TeamMember['_id'] }) {
     try {
-        const { data } = await API.post(`/projects/${projectId}/team/find`, formData)
+        const { data } = await API.post(`/projects/${projectId}/team`, {id})
         return data
     } catch (error) {
         hanldeApiError(error)
@@ -12,9 +12,9 @@ export async function findUserByEmail({ projectId, formData } : { projectId: Pro
 }
 
 
-export async function addUserToProject({ projectId, id } : { projectId: Project['_id'], id: TeamMember['_id'] }) {
+export async function findUserByEmail({ projectId, formData } : { projectId: Project['_id'], formData: TeamMemberForm }) {
     try {
-        const { data } = await API.post(`/projects/${projectId}/team`, {id})
+        const { data } = await API.post(`/projects/${projectId}/team/find`, formData)
         return data
     } catch (error) {
         hanldeApiError(error)

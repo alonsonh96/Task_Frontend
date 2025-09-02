@@ -1,13 +1,11 @@
 import { AddMemberModal } from "@/components/team/AddMemberModal"
 import { Link, Navigate, useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { getProjectTeam, removeUserFromProject } from "@/api/TeamAPI"
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react"
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid"
 import { Fragment } from "react/jsx-runtime"
-import { toast } from "react-toastify"
 import { ROUTE_PATHS } from "@/constants/routes"
+import { useGetProjectTeam, useRemoveUserFromProject } from "@/hooks/useTeamMutation"
 
 
 const ProjectTeamView = () => {
@@ -15,24 +13,10 @@ const ProjectTeamView = () => {
   const navigate = useNavigate()
   const params = useParams()
   const projectId = params.projectId!
-  const queryClient = useQueryClient()
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['projectTeam', projectId],
-    queryFn: () => getProjectTeam(projectId),
-    retry: false
-  })
+  const { data, isLoading, isError } = useGetProjectTeam(projectId)
 
-  const { mutate } = useMutation({
-    mutationFn: removeUserFromProject,
-    onError: (error) => {
-      toast.error(error.message)
-    },
-    onSuccess: (data) => {
-      toast.success(data?.message)
-      queryClient.invalidateQueries({ queryKey: ['projectTeam', projectId]})
-    }
-  })
+  const { mutate } = useRemoveUserFromProject(projectId)
 
   if(isLoading) return 'Cargando ...'
   if(isError) return <Navigate to={ROUTE_PATHS.ERROR.NOT_FOUND}/>
