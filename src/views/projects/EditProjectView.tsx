@@ -1,7 +1,7 @@
 import { Navigate, useParams } from "react-router-dom"
 import EditProjectForm from "@/components/projects/EditProjectForm";
 import { ROUTE_PATHS } from "@/constants/routes";
-import { useProjectById } from "@/hooks/useProjects";
+import { useProjectById } from "@/hooks/useProjectMutation";
 
 
 const EditProjectView = () => {

@@ -3,7 +3,7 @@ import ProjectForm from "./ProjectForm";
 import { useForm } from "react-hook-form";
 import { ROUTE_PATHS } from "@/constants/routes";
 import type { Project, ProjectFormData } from "@/types/projects";
-import { useUpdateProject } from "@/hooks/useProjects";
+import { useUpdateProject } from "@/hooks/useProjectMutation";
 
 type EditProjectFormProps = {
     data: ProjectFormData,

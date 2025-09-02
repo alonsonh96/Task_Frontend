@@ -2,7 +2,7 @@
 import { Fragment } from 'react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useDeleteProject } from '@/hooks/useProjects';
+import { useDeleteProject } from '@/hooks/useProjectMutation';
 
 const DeleteProjectModal = () => {
 

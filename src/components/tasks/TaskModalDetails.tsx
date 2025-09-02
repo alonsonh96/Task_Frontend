@@ -2,17 +2,15 @@ import { Fragment, useEffect } from 'react';
 import { statusTranslations } from '@/locales/es';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getTaskById, updateTaskStatus } from '@/api/TaskAPI';
 import { toast } from 'react-toastify';
 import { formatDateTime } from '@/utils/utils';
 import { NotesPanel } from '../notes/NotesPanel';
 import { ROUTE_PATHS } from '@/constants/routes';
 import type { TaskStatus } from '@/types/task';
+import { useTaskById, useUpdateTaskStatus } from '@/hooks/useTaskMutation';
 
 const TaskModalDetails = () => {
 
-  const queryClient = useQueryClient();
   const params = useParams();
   const projectId = params.projectId!;
 
@@ -22,28 +20,9 @@ const TaskModalDetails = () => {
   const taskId = queryParams.get('viewTask')!;
   const show = taskId ? true : false;
 
-  // Validar que tanto projectId como taskId existan
-  const shouldQuery = !!(projectId && taskId)
+  const { data, isError, error } = useTaskById(projectId, taskId);
 
-  const { data, isError, error } = useQuery({
-    queryKey: ['task', taskId],
-    queryFn: () => getTaskById({projectId, taskId}),
-    enabled: shouldQuery,
-    retry: false,
-  })
-
-  const { mutate } = useMutation({
-    mutationFn: updateTaskStatus,
-    onSuccess: (data) => {
-      toast.success(data.message);
-      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
-      queryClient.invalidateQueries({ queryKey: ["task", taskId] });
-      navigate(location.pathname, { replace: true });
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    }
-  })
+  const { mutate } = useUpdateTaskStatus(projectId, taskId);
 
   const handleChangeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const status = e.target.value as TaskStatus

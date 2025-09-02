@@ -12,7 +12,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { isManager } from "@/utils/policies";
 import DeleteProjectModal from "@/components/projects/DeleteProjectModal";
 import { ROUTE_PATHS } from "@/constants/routes";
-import { useGetProjects } from "@/hooks/useProjects";
+import { useGetProjects } from "@/hooks/useProjectMutation";
 
 const DashboardView = () => {
 

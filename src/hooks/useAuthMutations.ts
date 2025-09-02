@@ -1,7 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_PATHS } from "@/constants/routes";
-import { authenticateUser, confirmAccount, createAccount, forgotPassword, logoutUser, requestConfirmationCode, updatePasswordWithToken, validateToken } from "@/api/AuthAPI";
+import { 
+    authenticateUser, 
+    confirmAccount, 
+    createAccount, 
+    forgotPassword, 
+    logoutUser, 
+    requestConfirmationCode, 
+    updatePasswordWithToken, 
+    validateToken 
+} from "@/api/AuthAPI";
 import { toast } from "react-toastify";
 
 

@@ -8,11 +8,9 @@ import {
 } from "@headlessui/react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import TaskForm from "../tasks/TaskForm";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createTask } from "@/api/TaskAPI";
-import { toast } from "react-toastify";
 import type { TaskFormData } from "@/types/task";
+import { useCreateTask } from "@/hooks/useTaskMutation";
+import TaskForm from "../tasks/TaskForm";
 
 const AddTaskModal = () => {
 
@@ -33,21 +31,7 @@ const AddTaskModal = () => {
         description: "",
     };
 
-    const queryClient = useQueryClient();
-    const { mutate } = useMutation({
-      mutationFn: createTask,
-      onError: (error: Error) => {
-        toast.error(error.message)
-      },
-      onSuccess: (data) => {
-        queryClient.invalidateQueries({queryKey: ["editProject", projectId]});
-        queryClient.invalidateQueries({queryKey: ["project", projectId]});
-        toast.success(data.message)
-        reset();
-        // Close the modal after creating the task
-        navigate(location.pathname, { replace: true });
-      }
-    })
+    const { mutate } = useCreateTask(projectId);
 
     const { register, handleSubmit, reset, formState: {errors} } = useForm<TaskFormData>({ defaultValues: initialValues });
 
@@ -57,6 +41,7 @@ const AddTaskModal = () => {
         projectId
       }
         mutate(data);
+        reset();
     }
 
   return (

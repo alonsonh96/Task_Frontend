@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import ProjectForm from "@/components/projects/ProjectForm";
 import { ROUTE_PATHS } from "@/constants/routes";
 import type { ProjectFormData } from "@/types/projects";
-import { useCreateProject } from "@/hooks/useProjects";
+import { useCreateProject } from "@/hooks/useProjectMutation";
 
 const CreateProjectView = () => {
 

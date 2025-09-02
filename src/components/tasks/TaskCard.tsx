@@ -2,10 +2,8 @@ import { Fragment } from "react";
 import { Menu, MenuButton, Transition, MenuItems, MenuItem} from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { useNavigate, useParams } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-toastify";
-import { deleteTask } from "@/api/TaskAPI";
 import type { Task } from "@/types/task";
+import { useDeleteTask } from "@/hooks/useTaskMutation";
 
 type TaskCardProps = {
     task: Task;
@@ -17,17 +15,8 @@ const TaskCard = ({ task, canEdit } : TaskCardProps) => {
   const navigate = useNavigate();
   const params = useParams();
   const projectId = params.projectId!;
-  const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
-    mutationFn: deleteTask,
-    onSuccess: () => {
-      toast.success("Tarea eliminada correctamente");
-      queryClient.invalidateQueries({ queryKey: ["project", projectId]});},
-    onError: (error) => {
-      toast.error(error.message);
-    }
-  })
+  const { mutate } = useDeleteTask(projectId);
 
   const handleDeleteTask = () => {
     const data = {

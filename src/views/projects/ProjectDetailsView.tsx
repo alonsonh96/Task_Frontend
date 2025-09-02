@@ -7,7 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { isManager } from '@/utils/policies';
 import { useMemo } from 'react';
 import { ROUTE_PATHS } from '@/constants/routes';
-import { useProjectById } from '@/hooks/useProjects';
+import { useProjectById } from '@/hooks/useProjectMutation';
 
   const ProjectDetailsView = () => {
 
