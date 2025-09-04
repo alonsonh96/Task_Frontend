@@ -2,9 +2,10 @@ import React from 'react'
 
 const ErrorMessage = ({ children } : {children: React.ReactNode}) => {
   return (
-    <div className='text-center my-4 bg-red-100 text-red-600 font-bold p-3 uppercase text-sm'>
+    <p className="text-red-500 text-sm mt-2 flex items-center gap-2">
+      <span className="w-4 h-4 rounded-full bg-red-500 flex items-center justify-center text-white text-xs">!</span>
       {children}
-    </div>
+    </p>
   )
 }
 

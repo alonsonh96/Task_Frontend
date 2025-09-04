@@ -5,9 +5,7 @@ import {
   MenuItems,
   MenuItem,
   Transition,
-  Popover
 } from "@headlessui/react";
-import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { isManager } from "@/utils/policies";
