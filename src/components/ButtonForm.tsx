@@ -8,7 +8,7 @@ const ButtonForm = ({ isPending, loadingText, children } : LoadingButtonProps) =
     return (
         <button
             type="submit"
-            className={`w-full cursor-pointer py-5 px-8 rounded-xl text-xl font-bold text-white transition-all duration-300 transform hover:scale-105 shadow-lg ${isPending
+            className={`w-full cursor-pointer mt-5 py-5 px-8 rounded-xl text-xl font-bold text-white transition-all duration-300 transform hover:scale-102 shadow-lg ${isPending
                     ? 'bg-gray-400 cursor-not-allowed'
                     : 'bg-gradient-to-r from-fuchsia-600 via-purple-600 to-blue-600 hover:from-fuchsia-700 hover:via-purple-700 hover:to-blue-700 hover:shadow-xl'
                 }`}

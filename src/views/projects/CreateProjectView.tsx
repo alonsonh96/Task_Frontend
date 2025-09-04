@@ -29,12 +29,12 @@ const CreateProjectView = () => {
     <>
       <div className="text-center max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mb-6 shadow-lg">
+          <div className="flex items-center flex-row justify-center gap-3 mb-6">
             <Plus className="w-10 h-10 text-white" />
+            <h1 className="text-6xl font-black text-white mb-4 tracking-tight">
+              Crear proyecto
+            </h1>
           </div>
-          <h1 className="text-6xl font-black text-white mb-4 tracking-tight">
-            Crear proyecto
-          </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
             Llena el siguiente formulario para crear un nuevo proyecto y comenzar a gestionarlo de manera eficiente
           </p>
