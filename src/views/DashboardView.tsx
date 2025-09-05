@@ -69,7 +69,7 @@ const DashboardView = () => {
                         <div className="overflow-hidden rounded-2xl bg-slate-800/95 backdrop-blur-xl shadow-2xl ring-1 ring-slate-700/50 border border-slate-600/30">
                           <div className="bg-gradient-to-r from-slate-700/30 to-slate-600/30 px-4 py-3 border-b border-slate-700/50">
                             <p className="text-slate-300 text-sm font-medium">
-                              Opciones del proyecto a
+                              Opciones del proyecto
                             </p>
                           </div>
                           <div className="p-2">

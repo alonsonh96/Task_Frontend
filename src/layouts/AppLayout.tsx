@@ -27,7 +27,7 @@ const AppLayout = () => {
           <NavMenu user={data?.data}/>
         </div>
       </header>
-      <section className="max-w-screen-2xl mx-auto mt-5">
+      <section className="max-w-11/12 mx-auto pt-5">
         <Outlet />
       </section>
       <footer className="py-8 w-full border-t border-slate-700/50 bg-slate-800/30 backdrop-blur-sm">
