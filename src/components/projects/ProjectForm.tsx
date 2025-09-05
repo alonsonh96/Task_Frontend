@@ -22,7 +22,8 @@ const ProjectForm = ({ errors, register } : ProjectFormProps) => {
         <div className="relative">
           <input
             id="projectName"
-            className={`w-full px-6 py-4 text-lg border-2 rounded-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500/20 ${errors.projectName
+            className={`w-full px-6 py-4 text-lg border-2 rounded-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500/20 
+              ${errors.projectName
               ? 'border-red-400 bg-red-50'
               : 'border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300'
               }`}

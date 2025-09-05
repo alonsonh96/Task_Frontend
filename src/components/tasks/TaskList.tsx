@@ -79,7 +79,7 @@ const TaskList = ({tasks, canEdit} : TaskListProps) => {
 
   if (tasks) return (
     <>
-      <div className="flex gap-6 overflow-x-auto">
+      <div className="flex gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:h-3 [&::-webkit-scrollbar-track]:bg-slate-600 [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-gray-400">
         {Object.entries(groupedTasks).map(([status, statusTasks]) => {
           const StatusIcon = statusStyles[status as Task['status']].icon;
 
@@ -111,7 +111,16 @@ const TaskList = ({tasks, canEdit} : TaskListProps) => {
               </div>
 
               {/* Column Content - Scrollable */}
-              <div className={`bg-white/90 backdrop-blur-sm rounded-b-xl shadow-lg flex-1 min-h-[500px] max-h-[80vh] overflow-y-auto p-4 bg-gradient-to-b ${statusStyles[status as Task['status']].gradient}`}>
+              <div className={`bg-white/90 backdrop-blur-sm rounded-b-xl shadow-lg flex-1 min-h-[500px] max-h-[70vh] overflow-y-auto p-4 bg-gradient-to-b
+                [&::-webkit-scrollbar]:w-2
+                [&::-webkit-scrollbar-track]:bg-transparent
+                [&::-webkit-scrollbar-thumb]:bg-slate-400/80
+                [&::-webkit-scrollbar-thumb]:rounded-full
+                [&::-webkit-scrollbar-thumb]:border-2
+                [&::-webkit-scrollbar-thumb]:border-transparent
+                hover:[&::-webkit-scrollbar-thumb]:bg-slate-500
+                [&::-webkit-scrollbar-thumb]:transition-all
+                 ${statusStyles[status as Task['status']].gradient}`}>
                 {statusTasks.length === 0 ? (
                   <div className="flex flex-col items-center justify-center h-40 text-gray-400 border-2 border-dashed border-gray-200 rounded-lg">
                     <StatusIcon className="w-12 h-12 mb-3 opacity-30" />
