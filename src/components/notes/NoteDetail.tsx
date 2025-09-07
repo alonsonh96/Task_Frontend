@@ -1,7 +1,8 @@
 import { useAuth } from '@/hooks/useAuth'
 import { useDeleteNote } from '@/hooks/useNoteMutation'
 import type { Note } from '@/types/notes'
-import { formatDate } from '@/utils/utils'
+import { formatDateTime } from '@/utils/utils'
+import { Trash, User } from 'lucide-react'
 import { useMemo } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 
@@ -26,20 +27,27 @@ export const NoteDetail = ({ note } : NoteDetailProps) => {
 
   if(isLoading) return 'Cargando ...'
 
-  return (
-      <div className='p-3 flex justify-between items-center'>
-          <div>
-              <p>{note.content} por : <span className='font-bold'>{note.createdBy.name}</span></p>
-              <p className='text-xs text-slate-500'>{formatDate(note.createdAt)}</p>
-          </div>
-          {canDelete && (
-            <button 
-                type='button'
-                className='bg-red-400 hover:bg-red-500 p-2 text-xs font-bol text-white cursor-pointer transition-colors rounded-md'
-                onClick={() => mutate({projectId, taskId, noteId: note._id})}>
-                Eliminar
-            </button>
-          )}
-      </div>
-  )
+    return (
+        <div className="bg-white rounded-lg shadow-sm border-b py-2 border-gray-300">
+            <div className='flex justify-between items-start gap-2 py-1'>
+                <p className="text-sm text-gray-800 break-words whitespace-pre-wrap flex-1  max-w-[70%]">
+                    {note.content}
+                </p>
+                {canDelete && (
+                    <button
+                        type='button'
+                        className='bg-red-400 hover:bg-red-500 p-1 text-xs font-bol text-white cursor-pointer transition-colors rounded-md'
+                        onClick={() => mutate({ projectId, taskId, noteId: note._id })}>
+                        <Trash className='w-4 h-4' />
+                    </button>
+                )}
+            </div>
+            <div className="flex items-center justify-between text-xs text-gray-500">
+                <div className='flex gap-2'>
+                    <User className='h-4 w-4' /><span>{note.createdBy.name}</span>
+                </div>
+                <span>{formatDateTime(note.createdAt)}</span>
+            </div>
+        </div>
+    )
 }

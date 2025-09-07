@@ -58,8 +58,8 @@ const EditTaskModal = ({ data, taskId } : EditTaskModalProps) => {
                           <DialogPanel className="w-full max-w-2xl transform transition-all">
                               <div className="relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl shadow-black/20 overflow-hidden border border-white/20">
                                   <div className="bg-gradient-to-r from-slate-800 via-slate-800 to-slate-800 px-8 py-6">
-                                      <div className="flex text-start justify-between">
-                                          <div>
+                                      <div className="flex items-start justify-between">
+                                          <div className="text-start">
                                               <DialogTitle
                                                   as="h3"
                                                   className="text-3xl font-black text-white mb-2"
@@ -73,7 +73,7 @@ const EditTaskModal = ({ data, taskId } : EditTaskModalProps) => {
                                           </div>
                                           <button
                                               onClick={() => navigate(location.pathname, { replace: true })}
-                                              className="p-2 hover:bg-white/20 rounded-full transition-colors duration-200 group cursor-pointer"
+                                              className="p-2 cursor-pointer hover:bg-white/20 rounded-lg transition-colors duration-200"
                                           >
                                               <X className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
                                           </button>

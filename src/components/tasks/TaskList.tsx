@@ -79,7 +79,12 @@ const TaskList = ({tasks, canEdit} : TaskListProps) => {
 
   if (tasks) return (
     <>
-      <div className="flex gap-6 overflow-x-auto pb-4 [&::-webkit-scrollbar]:h-3 [&::-webkit-scrollbar-track]:bg-slate-600 [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-gray-400">
+      <div className="flex gap-6 overflow-x-auto pb-4 
+      [&::-webkit-scrollbar]:h-3 
+      [&::-webkit-scrollbar-track]:bg-slate-600 
+      [&::-webkit-scrollbar-thumb]:bg-slate-300 
+      [&::-webkit-scrollbar-thumb]:rounded-full 
+      hover:[&::-webkit-scrollbar-thumb]:bg-gray-400">
         {Object.entries(groupedTasks).map(([status, statusTasks]) => {
           const StatusIcon = statusStyles[status as Task['status']].icon;
 

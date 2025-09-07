@@ -22,7 +22,7 @@ export const taskSchema = z.object({
     description: z.string(),
     project: z.string(),
     status: taskStatusSchema,
-    completedBy: z.array(z.object({user: userSchema , status: taskStatusSchema})),
+    completedBy: z.array(z.object({user: userSchema , status: taskStatusSchema, createdAt: z.string()})),
     notes: z.array(noteSchema),
     createdAt: z.string(),
     updatedAt: z.string()

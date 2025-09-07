@@ -3,6 +3,8 @@ import { useLocation, useParams } from "react-router-dom"
 import type { NoteFormData } from "@/types/notes"
 import { useCreateNote } from "@/hooks/useNoteMutation"
 import ErrorMessage from "../ErrorMessage"
+import ButtonForm from "../ButtonForm"
+import { NotebookPen } from "lucide-react"
 
 export const AddNoteForm = () => {
 
@@ -19,7 +21,7 @@ export const AddNoteForm = () => {
 
   const { register, handleSubmit, reset, formState: {errors} } = useForm({defaultValues: initialValues})
 
-  const { mutate } = useCreateNote(taskId)
+  const { mutate, isPending } = useCreateNote(taskId)
 
   const hanldeAddNote = (formData : NoteFormData) => {
     mutate({ projectId, taskId, formData })
@@ -27,14 +29,16 @@ export const AddNoteForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(hanldeAddNote)} className='space-y-3' noValidate>
+    <form onSubmit={handleSubmit(hanldeAddNote)} className='space-y-3 mt-2' noValidate>
         <div className='flex flex-col gap-2'>
-            <label className='font-bold' htmlFor="content">Crear Nota</label>
-            <input 
-                id="content" 
-                type="text" 
+            <label className="text-sm font-medium text-gray-900">Crear Nota</label>
+            <textarea
+                id="content"  
                 placeholder='Contenido de la nota' 
-                className='w-full p-3 border-gray-300'
+                className={`w-full px-6 py-4 text-sm bg-gray-50 border border-gray-400 rounded-lg focus:border-gray-400 focus:bg-white transition-all duration-200 outline-none resize-none
+                  ${errors.content
+                  ? 'border-red-400 bg-red-50'
+                  : 'border-gray-200 focus:border-purple-500 bg-white hover:border-gray-300'}`}
                 {...register('content', {
                     required: 'El contenido de la nota es obligatorio'
                 })}
@@ -42,8 +46,11 @@ export const AddNoteForm = () => {
             {errors.content && (
                 <ErrorMessage>{errors.content.message}</ErrorMessage>
             )}
-        </div>
-        <input type="submit" value="Crear Nota"  className='bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-2 text-white font-black cursor-pointer'/>
+        </div>        
+        <ButtonForm isPending={isPending} loadingText="Guardando...">
+          <NotebookPen className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
+          Crear nota
+        </ButtonForm>
     </form>
   )
 }
