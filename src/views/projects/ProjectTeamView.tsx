@@ -46,7 +46,7 @@ const ProjectTeamView = () => {
 
       <h2 className='text-4xl font-bold text-white mb-4'>Miembros actuales</h2>
       {data.length ? (
-        <div className="grid gap-4">
+        <div className="grid gap-4 mb-10">
           {data?.map((member) => (
             <div key={member._id} className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all">
               <div className="flex items-center justify-between">

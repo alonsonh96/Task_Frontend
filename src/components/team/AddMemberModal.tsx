@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { Dialog, Transition, TransitionChild, DialogPanel, DialogTitle } from '@headlessui/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AddMemberForm } from './AddMemberForm';
+import { X } from 'lucide-react';
 
 export const AddMemberModal = () => {
 
@@ -25,7 +26,7 @@ export const AddMemberModal = () => {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-black/60" />
+                        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" />
                     </TransitionChild>
 
                     <div className="fixed inset-0 overflow-y-auto">
@@ -39,18 +40,33 @@ export const AddMemberModal = () => {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
-                                    <DialogTitle
-                                        as="h3"
-                                        className="font-black text-4xl  my-5"
-                                    >
-                                        Agregar Integrante al equipo
-                                    </DialogTitle>
-                                    <p className="text-xl font-bold">Busca el nuevo integrante por email {''}
-                                        <span className="text-fuchsia-600">para agregarlo al proyecto</span>
-                                    </p>
-                                    <AddMemberForm/>
+                                <DialogPanel className="w-full max-w-2xl transform transition-all">
+                                    <div className="relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl shadow-black/20 overflow-hidden border border-white/20">
+                                        <div className="bg-gradient-to-r from-slate-800 via-slate-800 to-slate-800 px-8 py-6">
+                                            <div className="flex text-start justify-between">
+                                                <div>
+                                                    <DialogTitle
+                                                        as="h3"
+                                                        className="text-3xl font-black text-white mb-2"
+                                                    >
+                                                        Nuevo integrante
+                                                    </DialogTitle>
+                                                    <p className="text-white/90 text-lg font-medium">Busca el nuevo integrante por email {''}
+                                                        <span className="text-yellow-300 font-bold">para agregarlo al proyecto</span>
+                                                    </p>
+                                                </div>
+                                                <button
+                                                    onClick={() => navigate(location.pathname, { replace: true })}
+                                                    className="p-2 hover:bg-white/20 rounded-full transition-colors duration-200 group cursor-pointer"
+                                                >
+                                                    <X className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
+                                                </button>
+                                            </div>
+                                        </div>
 
+
+                                        <AddMemberForm />
+                                    </div>
                                 </DialogPanel>
                             </TransitionChild>
                         </div>

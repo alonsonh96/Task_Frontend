@@ -1,5 +1,6 @@
 import { useAddUserToProject } from '@/hooks/useTeamMutation'
 import type { TeamMember } from '@/types/team'
+import { CheckCircle, Mail, User, UserPlus } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 
 type SearchResultProps = {
@@ -9,12 +10,12 @@ type SearchResultProps = {
 
 export const SearchResult = ({ user, reset }: SearchResultProps) => {
 
-  const { name, _id } = user
+  const { name, _id, email } = user
 
   const params = useParams()
   const projectId = params.projectId!
 
-  const { mutate } = useAddUserToProject(projectId)
+  const { mutate, isPending } = useAddUserToProject(projectId)
 
   const handleAddUserToProject = () => {{
     const data = {projectId, id: _id}
@@ -23,17 +24,74 @@ export const SearchResult = ({ user, reset }: SearchResultProps) => {
   }}
 
   return (
-    <>
-        <p className='mt-10 text-center font-bold'>Resultado:</p>
-        <div className='flex justify-between items-center'>
-            <p className='font-bold'>Usuario :<span className='font-normal'>{name}</span></p>
-            <button 
-                className='bg-slate-700 text-white hover:bg-slate-600 px-10 py-3 font-bold cursor-pointer rounded-md'
+    <div className="mt-10 space-y-6">
+      {/* Header */}
+      <div className="text-center">
+        <h3 className="text-lg font-semibold text-gray-800 mb-1">Resultado:</h3>
+        <div className="w-16 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
+      </div>
+
+      {/* User Card Result */}
+      <div className="bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 rounded-xl p-6 shadow-sm">
+        <div className="flex flex-col sm:flex-row gap-y-3 sm:gap-y-0 items-center justify-between">
+          {/* User Info */}
+          <div className="flex items-center gap-4">
+            {/* Avatar */}
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-md">
+              <span className="text-white font-semibold text-lg">
+                {name.split(' ').map(n => n[0]).join('').substring(0, 2)}
+              </span>
+            </div>
+
+            {/* User Details */}
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <User className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium text-gray-600">Usuario encontrado:</span>
+              </div>
+              <h4 className="text-lg font-semibold text-gray-900 mb-1">{name}</h4>
+              <div className="flex items-center gap-1 text-sm text-gray-600">
+                <Mail className="w-3 h-3" />
+                <span>{email}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Action Button */}
+          <div className="ml-4">
+            {!isPending ? (
+              <button
+                className={`
+                  cursor-pointer flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all duration-200 transform
+                  ${isPending
+                    ? 'bg-blue-500 text-white cursor-not-allowed scale-95'
+                    : 'bg-slate-700 hover:bg-slate-600 text-white hover:scale-105 shadow-md hover:shadow-lg'
+                  }
+                `}
                 onClick={handleAddUserToProject}
-            >
-                Agregar al proyecto
-            </button>
+                disabled={isPending}
+              >
+                {isPending ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Agregando...
+                  </>
+                ) : (
+                  <>
+                    <UserPlus className="w-4 h-4" />
+                    Agregar al proyecto
+                  </>
+                )}
+              </button>
+            ) : (
+              <div className="flex items-center gap-2 px-6 py-3 bg-green-100 text-green-700 rounded-lg font-semibold">
+                <CheckCircle className="w-4 h-4" />
+                Agregado exitosamente
+              </div>
+            )}
+          </div>
         </div>
-    </>
+      </div>
+    </div>
   )
 }
