@@ -35,12 +35,7 @@ const ProfileForm = ({ data } : ProfileFormProps) => {
                 </p>
               </div>
               
-              <div className="mb-8 flex items-start">
-                  <Link to={ROUTE_PATHS.HOME} className="group inline-flex cursor-pointer items-center gap-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-6 py-3 rounded-xl text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                      <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1 cursor-pointer" />
-                      Volver a proyectos
-                  </Link>
-              </div>
+
 
               <form
                   onSubmit={handleSubmit(handleEditProfile)}

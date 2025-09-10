@@ -1,5 +1,6 @@
 import { ROUTE_PATHS } from '@/constants/routes'
 import { FingerPrintIcon, UserIcon } from '@heroicons/react/20/solid'
+import { ArrowLeft } from 'lucide-react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const tabs = [
@@ -19,6 +20,14 @@ const Tabs = () => {
 
     return (
         <div className='mb-10'>
+
+            <div className="mb-8 flex items-start">
+                <Link to={ROUTE_PATHS.HOME} className="group inline-flex cursor-pointer items-center gap-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-6 py-3 rounded-xl text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                    <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1 cursor-pointer" />
+                    Volver a proyectos
+                </Link>
+            </div>
+
             <div className="sm:hidden">
                 <label htmlFor="tabs" className="sr-only">
                     Select a tab
@@ -26,7 +35,15 @@ const Tabs = () => {
                 <select
                     id="tabs"
                     name="tabs"
-                    className="block w-full rounded-md border-gray-300 focus:border-purple-800 focus:ring-purple-800"
+                    className="
+                        block w-full rounded-xl 
+                        border-2 border-gray-200 
+                        bg-white px-4 py-3
+                        text-gray-900 font-medium
+                        focus:border-purple-600 focus:ring-4 focus:ring-purple-100
+                        focus:outline-none
+                        shadow-sm
+                        transition-colors"
                     onChange={(e: React.ChangeEvent<HTMLSelectElement>) => navigate(e.target.value)}
                     value={currentTab}
                 >
@@ -49,14 +66,14 @@ const Tabs = () => {
                                 to={tab.href}
                                 className={classNames(
                                     location.pathname === tab.href
-                                        ? 'border-purple-800 text-purple-800'
+                                        ? 'border-purple-800 text-white'
                                         : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
                                     'group inline-flex items-center border-b-2 py-4 px-1 text-sm font-medium'
                                 )}
                             >
                                 <tab.icon
                                     className={classNames(
-                                        location.pathname === tab.href ? 'text-purple-800' : 'text-gray-400 group-hover:text-gray-500',
+                                        location.pathname === tab.href ? 'text-white' : 'text-gray-400 group-hover:text-gray-500',
                                         '-ml-0.5 mr-2 h-5 w-5'
                                     )}
                                     aria-hidden="true"
