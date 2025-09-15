@@ -33,7 +33,7 @@ const LoginView = () => {
         <div className="mb-5">
           <label
             className="block text-slate-300 text-sm font-medium mb-2"
-          >Email</label>
+          >Correo electrónico</label>
 
           <input
             id="email"
@@ -45,10 +45,10 @@ const LoginView = () => {
               : 'border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50'
             }`}
             {...register("email", {
-              required: "El email es obligatorio",
+              required: "El correo electrónico es obligatorio",
               pattern: {
                 value: /\S+@\S+\.\S+/,
-                message: "E-mail no válido",
+                message: "Correo electrónico no válido",
               },
             })}
           />
@@ -89,7 +89,7 @@ const LoginView = () => {
         <input
           type="submit"
           value='Iniciar Sesión'
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-blue-500/25"
+          className="cursor-pointer w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-blue-500/25"
           />
 
         {/* Status indicator like your "En progreso" */}
