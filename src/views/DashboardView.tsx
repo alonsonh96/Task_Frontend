@@ -50,7 +50,7 @@ const DashboardView = () => {
                       DEVELOPER
                     </span>}
                   <Menu>
-                    <MenuButton className="bg-slate-700/50 hover:bg-slate-600/50 border border-slate-600/50 text-slate-300 hover:text-white p-2 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl group">
+                    <MenuButton className="cursor-pointer bg-slate-700/50 hover:bg-slate-600/50 border border-slate-600/50 text-slate-300 hover:text-white p-2 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl group">
                       <span className="sr-only">opciones</span>
                       <svg className="h-6 w-6 transition-transform duration-200 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
@@ -113,7 +113,7 @@ const DashboardView = () => {
                                   <button
                                     type="button"
                                     onClick={() => navigate(location.pathname + `?deleteProject=${project._id}`)}
-                                    className="group flex items-center gap-3 rounded-xl px-4 py-3 text-slate-300 hover:bg-gradient-to-r hover:from-red-600/20 hover:to-pink-600/20 hover:text-white transition-all duration-200 border border-transparent hover:border-red-500/30 w-full text-left"
+                                    className="group cursor-pointer flex items-center gap-3 rounded-xl px-4 py-3 text-slate-300 hover:bg-gradient-to-r hover:from-red-600/20 hover:to-pink-600/20 hover:text-white transition-all duration-200 border border-transparent hover:border-red-500/30 w-full text-left"
                                   >
                                     <div className="w-8 h-8 bg-slate-700/50 group-hover:bg-red-500/30 rounded-lg flex items-center justify-center transition-all duration-200">
                                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
