@@ -22,32 +22,36 @@ const RequestNewCodeView = () => {
 
     return (
         <>
-            <h1 className="text-5xl font-black text-white text-center">Solicitar Código de Confirmación</h1>
-            <p className="text-2xl font-light text-white mt-5">
-                Coloca tu e-mail para recibir {''}
-                <span className=" text-fuchsia-500 font-bold"> un nuevo código</span>
-            </p>
+            
 
             <form
                 onSubmit={handleSubmit(handleRequestCode)}
-                className="space-y-8 p-10 rounded-lg bg-white mt-10"
+                className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 p-8"
                 noValidate
             >
-                <div className="flex flex-col gap-5">
+                <h2 className="text-2xl text-center font-semibold text-white mb-2">Solicitar código de confirmación</h2>
+                <p className="text-slate-400 text-center text-sm mb-8">
+                    Coloca tu correo electrónico para recibir un nuevo código
+                </p>
+                <div className="mb-5">
                     <label
-                        className="font-normal text-2xl"
+                        className="block text-slate-300 text-sm font-medium mb-2"
                         htmlFor="email"
-                    >Email</label>
+                    >Correo electrónico</label>
                     <input
                         id="email"
                         type="email"
-                        placeholder="Email de Registro"
-                        className="w-full p-3 rounded-lg border-gray-300 border"
+                        placeholder="nombre@ejemplo.com"
+                        className={`w-full px-4 py-3 bg-slate-900/50 border rounded-lg focus:outline-none transition-all text-white placeholder-slate-500
+                        ${errors.email
+                        ? 'border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500/50'
+                        : 'border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50'
+                        }`}
                         {...register("email", {
-                            required: "El Email de registro es obligatorio",
+                            required: "El correo electrónico de registro es obligatorio",
                             pattern: {
                                 value: /\S+@\S+\.\S+/,
-                                message: "E-mail no válido",
+                                message: "Correo electrónico no válido",
                             },
                         })}
                     />
@@ -59,24 +63,32 @@ const RequestNewCodeView = () => {
                 <input
                     type="submit"
                     value='Enviar Código'
-                    className="bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3 rounded-lg text-white font-black  text-xl cursor-pointer"
+                    className="cursor-pointer w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-blue-500/25"
                 />
-            </form>
 
-            <nav className="mt-10 flex flex-col space-y-4">
-                <Link
-                    to={ROUTE_PATHS.AUTH.LOGIN}
-                    className="text-center text-gray-300 font-normal"
-                >
-                    ¿Ya tienes cuenta? Iniciar Sesión
-                </Link>
-                <Link
-                    to={ROUTE_PATHS.AUTH.FORGOT_PASSWORD}
-                    className="text-center text-gray-300 font-normal"
-                >
-                    ¿Olvidaste tu contraseña? Reestablecer
-                </Link>
-            </nav>
+                {/* Divider */}
+                <div className="relative my-6">
+                    <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-slate-700"></div>
+                    </div>
+                    <div className="relative flex justify-center text-xs">
+                        <span className="px-3 bg-slate-800/50 text-slate-500">O</span>
+                    </div>
+                </div>
+
+                <p className="text-center mt-3 text-slate-400 text-sm">
+                    ¿Ya tienes cuenta?{' '}
+                    <Link to={ROUTE_PATHS.AUTH.LOGIN} className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
+                        Iniciar sesión
+                    </Link>
+                </p>
+                <p className="text-center mt-3 text-slate-400 text-sm">
+                    ¿Olviaste tu contraseña?{' '}
+                    <Link to={ROUTE_PATHS.AUTH.FORGOT_PASSWORD} className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
+                        Reestablecer
+                    </Link>
+                </p>
+            </form>
         </>
     )
 }
