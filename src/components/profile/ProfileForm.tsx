@@ -2,9 +2,8 @@ import { useForm } from "react-hook-form"
 import type { User, UserProfileForm } from "@/types/user"
 import { useUpdateProfile } from "@/hooks/useProfileMutation"
 import ErrorMessage from "../ErrorMessage"
-import { ArrowLeft, Mail, Save,  User as UserIcon, UserRoundPen } from "lucide-react"
-import { Link } from "react-router-dom"
-import { ROUTE_PATHS } from "@/constants/routes"
+import { Mail, Save,  User as UserIcon, UserRoundPen } from "lucide-react"
+
 import ButtonForm from "../ButtonForm"
 
 type ProfileFormProps = {

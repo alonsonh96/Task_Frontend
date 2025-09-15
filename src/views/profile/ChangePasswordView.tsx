@@ -16,7 +16,7 @@ const ChangePasswordView = () => {
   const { register, 
           handleSubmit, 
           watch, 
-          formState: { errors, isValid } 
+          formState: { errors } 
         } = useForm<UpdateCurrentUserPasswordForm>({ defaultValues: initialValues })
 
   const password = watch('password')

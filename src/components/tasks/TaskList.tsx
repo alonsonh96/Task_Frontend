@@ -59,11 +59,11 @@ const statusStyles = {
     }
   };
 
-  const priorityColors = {
-    high: 'bg-red-100 text-red-700 border-red-200',
-    medium: 'bg-yellow-100 text-yellow-700 border-yellow-200',
-    low: 'bg-green-100 text-green-700 border-green-200'
-  };
+  // const priorityColors = {
+  //   high: 'bg-red-100 text-red-700 border-red-200',
+  //   medium: 'bg-yellow-100 text-yellow-700 border-yellow-200',
+  //   low: 'bg-green-100 text-green-700 border-green-200'
+  // };
 
 const TaskList = ({tasks, canEdit} : TaskListProps) => {
 
@@ -85,6 +85,7 @@ const TaskList = ({tasks, canEdit} : TaskListProps) => {
       [&::-webkit-scrollbar-thumb]:bg-slate-300 
       [&::-webkit-scrollbar-thumb]:rounded-full 
       hover:[&::-webkit-scrollbar-thumb]:bg-gray-400">
+        
         {Object.entries(groupedTasks).map(([status, statusTasks]) => {
           const StatusIcon = statusStyles[status as Task['status']].icon;
 
@@ -142,8 +143,6 @@ const TaskList = ({tasks, canEdit} : TaskListProps) => {
                   </div>
                 )}
               </div>
-
-
             </div>
           )
         })}
