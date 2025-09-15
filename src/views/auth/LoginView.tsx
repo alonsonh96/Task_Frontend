@@ -67,7 +67,7 @@ const LoginView = () => {
             placeholder="••••••••"
             // className="w-full p-3  border-gray-300 border"
             className={`w-full px-4 py-3 bg-slate-900/50 border rounded-lg focus:outline-none transition-all text-white placeholder-slate-500
-            ${errors.email
+            ${errors.password
               ? 'border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500/50'
               : 'border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50'
             }`}
