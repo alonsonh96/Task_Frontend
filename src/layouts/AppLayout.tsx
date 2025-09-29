@@ -1,5 +1,4 @@
 import { Link, Outlet } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavMenu from "@/components/NavMenu";
 import { useAuth } from "@/hooks/useAuth";
@@ -45,7 +44,6 @@ const AppLayout = () => {
           </div>
         </div>
       </footer>
-      <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
     </div>
   );
 };

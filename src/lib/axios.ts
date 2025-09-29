@@ -1,3 +1,4 @@
+import { translateError, translateSuccess } from "@/utils/errorTranslations";
 import axios, { AxiosError, type InternalAxiosRequestConfig }  from "axios"
 
 const API = axios.create({
@@ -23,7 +24,21 @@ const processQueue = (error: unknown, success = false) => {
 
 
 API.interceptors.response.use(
-    response => response, // If the response was successful, we return it
+    (response) => {
+        const isSilentOperation = (
+            response.config.url?.includes('/auth/refresh'));
+
+        if (!isSilentOperation && response.data?.message) {
+            // Traducir mensaje de éxito
+            const translatedMessage = translateSuccess(response);
+            
+            // Agregar mensaje traducido al response
+            response.data.translatedMessage = translatedMessage;
+            console.log("RESPONSE: ", response.data.message)
+            console.log("RESPONSE TRADUCIDO: ", translatedMessage)
+        }
+        return response
+    }, // If the response was successful, we return it
     async (error: AxiosError) => {
         const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
@@ -66,6 +81,22 @@ API.interceptors.response.use(
             } finally {
                 isRefreshing = false;
             }
+        }
+
+        // ===== TRADUCCIÓN DE ERRORES =====
+        // Solo traducir errores que NO son de refresh token automático
+        // (para evitar mostrar toasts durante el refresh silencioso)
+        const shouldTranslate = !originalRequest.url?.includes('/auth/refresh');    
+
+        if (shouldTranslate) {
+            // Traducir el mensaje de error
+            const translatedMessage = translateError(error);
+
+            // Crear un nuevo error con el mensaje traducido
+            const translatedError = new Error(translatedMessage) as any;
+
+            console.log(error)
+            return Promise.reject(translatedError);
         }
         
         return Promise.reject(error);

@@ -1,8 +1,8 @@
-  import { Navigate, useParams, useNavigate, Link } from 'react-router-dom'
-  import AddTaskModal from '../../components/tasks/AddTaskModal';
-  import TaskList from '../../components/tasks/TaskList';
-  import EditTaskData from '../../components/tasks/EditTaskData';
-  import TaskModalDetails from '../../components/tasks/TaskModalDetails';
+import { Navigate, useParams, useNavigate, Link } from 'react-router-dom'
+import AddTaskModal from '@/components/tasks/AddTaskModal';
+import TaskList from '@/components/tasks/TaskList';
+import EditTaskData from '@/components/tasks/EditTaskData';
+import TaskModalDetails from '@/components/tasks/TaskModalDetails';
 import { useAuth } from '@/hooks/useAuth';
 import { isManager } from '@/utils/policies';
 import { useMemo } from 'react';
