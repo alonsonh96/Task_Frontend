@@ -29,23 +29,23 @@ export const MESSAGE_TRANSLATIONS: Record<string | number, string> = {
     // ***** AUTH_CONTROLLER *****
     // === REGISTRO DE USUARIO ===
     ACCOUNT_EMAIL_ALREADY_REGISTERED: "Ya existe una cuenta registrada con este correo electrónico",
-    ACCOUNT_CREATE_SUCCESS: "¡Bienvenido! Tu cuenta ha sido creada exitosamente. Revisa tu correo para confirmarla",
-    ACCOUNT_CREATE_FAILED: "Ha ocurrido un problema al intentar crear su cuenta",
+    ACCOUNT_CREATE_SUCCESS: "Cuenta creada con éxito. Revisa tu correo para confirmarla",
+    ACCOUNT_CREATE_FAILED: "No pudimos crear tu cuenta. Intenta más tarde",
 
     // --- CONFIRMAR CUENTA ---
     ACCOUNT_CONFIRMATION_TOKEN_REQUIRED: "El token de confirmación es obligatorio",
     ACCOUNT_CONFIRMATION_INVALID_TOKEN: "El token de confirmación es inválido o ha expirado",
     ACCOUNT_CONFIRMATION_USER_NOT_FOUND: "No se encontró el usuario asociado a este token",
     ACCOUNT_CONFIRMATION_ALREADY_CONFIRMED: "La cuenta ya estaba confirmada",
-    ACCOUNT_CONFIRMATION_SUCCESS: "¡Tu cuenta ha sido confirmada exitosamente!",
-    ACCOUNT_CONFIRMATION_FAILED: "No se pudo confirmar la cuenta. Intenta nuevamente más tarde",
+    ACCOUNT_CONFIRMATION_SUCCESS: "Cuenta confirmada con éxito",
+    ACCOUNT_CONFIRMATION_FAILED: "No pudimos confirmar la cuenta. Intenta más tarde",
 
     // --- LOGIN DE USUARIO ---
     ACCOUNT_LOGIN_REQUIRED_FIELDS: "El email y la contraseña son obligatorios",
     ACCOUNT_LOGIN_USER_NOT_FOUND: "Usuario no encontrado",
-    ACCOUNT_LOGIN_INVALID_CREDENTIALS: "Credenciales inválidas",
-    ACCOUNT_LOGIN_NOT_CONFIRMED: "Tu cuenta no está confirmada. Revisa tu correo",
-    ACCOUNT_LOGIN_SUCCESS: "¡Bienvenido de vuelta!",
+    ACCOUNT_LOGIN_INVALID_CREDENTIALS: "El email o la contraseña no son válidos",
+    ACCOUNT_LOGIN_NOT_CONFIRMED: "Debes confirmar tu cuenta antes de iniciar sesión",
+    ACCOUNT_LOGIN_SUCCESS: "Inicio de sesión exitoso",
 
     // --- SOLICITUD DE CONFIRMACIÓN ---
     ACCOUNT_REQUEST_CONFIRMATION_REQUIRED_EMAIL: "El email es obligatorio",
@@ -109,12 +109,12 @@ export const MESSAGE_TRANSLATIONS: Record<string | number, string> = {
 
     // ***** PROJECTS *****
     PROJECT_VALIDATION_REQUIRED_FIELDS: "El nombre del proyecto, cliente y descripción son obligatorios",
-    PROJECT_UNAUTHORIZED: "Usuario no autenticado",
+    PROJECT_UNAUTHORIZED: "Usuario no autorizado",
     PROJECTS_NOT_FOUND: "No se encontraron proyectos para este usuario",
     PROJECTS_FETCH_SUCCESS: "Proyectos obtenidos correctamente",
-    PROJECT_CREATE_SUCCESS: "Proyecto creado exitosamente",
-    PROJECT_UPDATE_SUCCESS: "Proyecto actualizado exitosamente",
-    PROJECT_DELETE_SUCCESS: "Proyecto eliminado exitosamente",
+    PROJECT_CREATE_SUCCESS: "Proyecto creado correctamente",
+    PROJECT_UPDATE_SUCCESS: "Proyecto actualizado correctamente",
+    PROJECT_DELETE_SUCCESS: "Proyecto eliminado correctamente",
     PROJECT_DELETE_FAILED: "No se pudo eliminar el proyecto",
 
     // ***** TASK *****
@@ -153,70 +153,37 @@ export const MESSAGE_TRANSLATIONS: Record<string | number, string> = {
 } as const;
 
 
-export const translateMessage = (message: string, isError: boolean = false): string => {
-    // Traducir mensaje exacto
-    if (message && MESSAGE_TRANSLATIONS[message]) {
-        return MESSAGE_TRANSLATIONS[message];
+export const translateResponse = (payload: any, isError: boolean = false): string => {
+    // 1. Mensaje por messageCode
+    const code = payload?.response?.data?.messageCode 
+              || payload?.messageCode 
+              || payload?.data?.messageCode;
+
+    if (code && MESSAGE_TRANSLATIONS[code]) {
+        return MESSAGE_TRANSLATIONS[code];
     }
-    
-    
-    // Patrones comunes para errores
+
+    // 2. Mensaje de error (network, timeout, etc.)
     if (isError) {
-        const lowerMessage = message.toLowerCase();
-        if (lowerMessage.includes('network') || lowerMessage.includes('fetch')) {
-            return 'Error de conexión. Verifica tu internet.';
+        const rawMessage = payload?.message || "";
+        const lowerMessage = rawMessage.toLowerCase();
+
+        if (lowerMessage.includes("network") || lowerMessage.includes("fetch")) {
+            return "Error de conexión. Verifica tu internet.";
         }
-        if (lowerMessage.includes('timeout')) {
-            return 'La operación tardó demasiado. Intenta de nuevo.';
+        if (lowerMessage.includes("timeout")) {
+            return "La operación tardó demasiado. Intenta de nuevo.";
         }
     }
-    
-    // Fallback
-    return isError 
-        ? 'Ha ocurrido un error. Por favor, intenta de nuevo.'
-        : 'Operación completada correctamente';
-};
 
+    // 3. Status HTTP
+    const status = payload?.response?.statusCode
+    if (status && MESSAGE_TRANSLATIONS[status]) {
+        return MESSAGE_TRANSLATIONS[status];
+    }
 
-export const translateError = (error: any): string => {
-    // 1. Mensaje del response
-    if (error.response?.data?.message) {
-        return translateMessage(error.response.data.message, true);
-    }
-    
-    // 2. Mensaje del error
-    if (error.message) {
-        return translateMessage(error.message, true);
-    }
-    
-    // 3. Código de error
-    if (error.response?.data?.errorCode && MESSAGE_TRANSLATIONS[error.response.data.errorCode]){
-        return MESSAGE_TRANSLATIONS[error.response.data.errorCode];
-    }
-    
-    // 4. Status HTTP
-    if (error.response?.status && MESSAGE_TRANSLATIONS[error.response.status]) {
-        return MESSAGE_TRANSLATIONS[error.response.status];
-    }
-    
-    return translateMessage('', true);
-};
-
-export const translateSuccess = (response: any): string => {
-    // 1. Mensaje del response
-    if (response.data?.message) {
-        return translateMessage(response.data.message, false);
-    }
-    
-    // 2. Código de éxito
-    if (response.data?.successCode && MESSAGE_TRANSLATIONS[response.data.successCode]) {
-        return MESSAGE_TRANSLATIONS[response.data.successCode];
-    }
-    
-    // 3. Status HTTP de éxito
-    if (response.status && MESSAGE_TRANSLATIONS[response.status]) {
-        return MESSAGE_TRANSLATIONS[response.status];
-    }
-    
-    return translateMessage('', false);
+    // 4. Fallback
+    return isError
+        ? "Ha ocurrido un error. Por favor, intenta de nuevo."
+        : "Operación completada correctamente";
 };

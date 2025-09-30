@@ -63,8 +63,8 @@ export const useLogin = () => {
         onError: (error) => {
             toast.error(error.message)
         },
-        onSuccess: () => {
-            toast.success('Iniciando sesión')
+        onSuccess: (response) => {
+            toast.success(response.message)
             const redirectTo = location.state?.from?.pathname || '/'
             navigate(redirectTo, { replace: true })
         },

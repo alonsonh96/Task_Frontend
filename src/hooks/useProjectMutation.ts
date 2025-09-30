@@ -43,9 +43,9 @@ export const useCreateProject = () => {
         onError: (error) => {
             toast.error(error.message)
         },
-        onSuccess: (response) => {
+        onSuccess: (data) => {
             queryClient.invalidateQueries({ queryKey: projectKeys.list() })
-            toast.success(response.message)
+            toast.success(data.message)
             navigate(ROUTE_PATHS.HOME)
         }
     })
@@ -80,8 +80,8 @@ export const useDeleteProject = () => {
         },
         onSuccess: (data) => {
             queryClient.invalidateQueries({ queryKey: projectKeys.list() });
-            navigate(location.pathname, { replace: true })
             toast.success(data.message);
+            navigate(location.pathname, { replace: true })     
         },
     })
 }

@@ -43,7 +43,6 @@ export async function requestConfirmationCode(formData: RequestConfirmationCodeF
 export async function authenticateUser(formData: UserLoginForm){
     try {
         const { data } = await API.post(`/auth/login`, formData)
-        console.log(data)
         return data
     } catch (error) {
         hanldeApiError(error)
