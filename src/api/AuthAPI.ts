@@ -84,7 +84,7 @@ export async function getUser(){
     try {
         const { data } = await API.get(`/auth/user`)
         const response = userResponseSchema.safeParse(data)
-        if(response.success) return response.data
+        return response.data
     } catch (error) {
         hanldeApiError(error)
     }

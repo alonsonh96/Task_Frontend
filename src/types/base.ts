@@ -2,7 +2,8 @@ import { z } from "zod"
 
 export const baseApiResponseSchema = z.object({
     success: z.boolean(),
-    message: z.string(),
+    messageCode: z.string(),
+    statusCode: z.number()
 })
 
 export type ApiResponse = z.infer<typeof baseApiResponseSchema>

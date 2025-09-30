@@ -1,13 +1,23 @@
 import { isAxiosError } from "axios";
 
+interface TranslatedAxiosError extends Error {
+    translatedMessage?: string;
+    response?: any;
+}
+
+
 export const hanldeApiError = (error: unknown): never => {
     if (isAxiosError(error)) {
-        const apiMessage = error.response?.data?.message
-        const statusMessage = error.response?.statusText
-        const genericMessage = error.message
+        // 1. Primero intentar obtener el mensaje traducido del interceptor
+        const translatedMessage = (error as TranslatedAxiosError).translatedMessage;
+        
+        if (translatedMessage) {
+            throw new Error(translatedMessage);
+        }
 
-        const message = apiMessage || statusMessage || genericMessage || 'Error desconocido'
-        throw new Error(message)
+        // 2. Fallback: si no hay traducción (no debería pasar), usar los mensajes originales
+        const apiMessage = error.response?.data?.messageCode
+        throw new Error(apiMessage || 'Error desconocido')
     }
 
     if (error instanceof Error) {
