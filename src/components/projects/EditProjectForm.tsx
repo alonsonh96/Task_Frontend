@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import ProjectForm from "./ProjectForm";
 import { useForm } from "react-hook-form";
 import { ROUTE_PATHS } from "@/constants/routes";
 import type { Project, ProjectFormData } from "@/types/projects";
 import { useUpdateProject } from "@/hooks/useProjectMutation";
-import ButtonForm from "../ButtonForm";
-import { ArrowLeft, Plus, Save, SquarePen } from "lucide-react";
+import { ArrowLeft, Save, SquarePen } from "lucide-react";
+import ProjectForm from "./ProjectForm";
+import ButtonForm from "../ui/ButtonForm";
 
 type EditProjectFormProps = {
     data: ProjectFormData,
@@ -52,12 +52,18 @@ const EditProjectForm = ({ data, projectId } : EditProjectFormProps ) => {
           </Link>
         </div>
         <form
-          className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-4 lg:p-12 border border-white/20"
+          className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 p-8 mb-20"
           onSubmit={handleSubmit(handleForm)}
           noValidate
         >
-          <ProjectForm register={register} errors={errors} />
-          <ButtonForm isPending={isPending} loadingText="Guardando cambios...">
+          <ProjectForm 
+            register={register} 
+            errors={errors} 
+          />
+          <ButtonForm 
+            isPending={isPending} 
+            loadingText="Guardando cambios..."
+          >
             <Save className="h-6 w-6" />
             Guardar cambios
           </ButtonForm>
