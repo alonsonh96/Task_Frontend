@@ -85,7 +85,6 @@ const LoginView = () => {
             ¿Olvidaste tu contraseña?
           </Link>
         </div>
-
         <input
           type="submit"
           value='Iniciar Sesión'
@@ -116,7 +115,7 @@ const LoginView = () => {
             <Link to={ROUTE_PATHS.AUTH.REGISTER} className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
               Crear una cuenta
             </Link>
-          </p>
+          </p> 
       </form>
     </>
   )

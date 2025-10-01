@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import ProjectForm from "@/components/projects/ProjectForm";
 import { ROUTE_PATHS } from "@/constants/routes";
 import type { ProjectFormData } from "@/types/projects";
 import { useCreateProject } from "@/hooks/useProjectMutation";
-import { ArrowLeft, Plus } from "lucide-react";
-import ButtonForm from "@/components/ButtonForm";
+import { ArrowLeft, Plus,  } from "lucide-react";
+import ProjectForm from "@/components/projects/ProjectForm";
+import ButtonForm from "@/components/ui/ButtonForm";
 
 const CreateProjectView = () => {
 
@@ -46,15 +46,18 @@ const CreateProjectView = () => {
           </Link>
         </div>
         <form
-          className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-4 lg:p-12 border border-white/20"
+          className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 p-8 mb-20"
           onSubmit={handleSubmit(handleForm)}
           noValidate
         >
-          <ProjectForm 
+          <ProjectForm
             register={register}
             errors={errors}
           />
-          <ButtonForm isPending={mutation.isPending} loadingText="Creando proyecto...">
+          <ButtonForm
+            isPending={mutation.isPending}
+            loadingText="Creando proyecto..."
+          >
             <Plus className="w-6 h-6" />
             Crear Proyecto
           </ButtonForm>
