@@ -28,9 +28,9 @@ export const NoteDetail = ({ note } : NoteDetailProps) => {
   if(isLoading) return 'Cargando ...'
 
     return (
-        <div className="bg-white rounded-lg shadow-sm border-b py-2 border-gray-300">
+        <div className=" shadow-sm border-b py-2 border-gray-300">
             <div className='flex justify-between items-start gap-2 py-1'>
-                <p className="text-sm text-gray-800 break-words whitespace-pre-wrap flex-1  max-w-[70%]">
+                <p className="text-sm text-white break-words whitespace-pre-wrap flex-1  max-w-[70%]">
                     {note.content}
                 </p>
                 {canDelete && (
@@ -42,7 +42,7 @@ export const NoteDetail = ({ note } : NoteDetailProps) => {
                     </button>
                 )}
             </div>
-            <div className="flex items-center justify-between text-xs text-gray-500">
+            <div className="flex items-center justify-between text-xs text-gray-300">
                 <div className='flex gap-2'>
                     <User className='h-4 w-4' /><span>{note.createdBy.name}</span>
                 </div>

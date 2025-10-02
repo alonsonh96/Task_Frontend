@@ -6,13 +6,14 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
+import { Plus, X } from "lucide-react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import type { TaskFormData } from "@/types/task";
 import { useCreateTask } from "@/hooks/useTaskMutation";
-import TaskForm from "../tasks/TaskForm";
-import ButtonForm from "../ButtonForm";
-import { Plus, X } from "lucide-react";
+import TaskForm from "@/components/tasks/TaskForm";
+import ButtonForm from "@/components/ui/ButtonForm";
+
 
 const AddTaskModal = () => {
 
@@ -74,17 +75,17 @@ const AddTaskModal = () => {
                 leaveTo="opacity-0 scale-95"
               >
                 <DialogPanel className="w-full max-w-2xl transform transition-all">
-                  <div className="relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl shadow-black/20 overflow-hidden border border-white/20">
+                  <div className="relative bg-slate-800 rounded-3xl shadow-2xl shadow-black/20 overflow-hidden border border-white/20">
                     <div className="bg-gradient-to-r from-slate-800 via-slate-800 to-slate-800 px-8 py-6">
-                      <div className="flex text-start justify-between">
-                        <div>
-                          <DialogTitle as="h3" className="text-3xl font-black text-white mb-2">
+                      <div className="flex items-start justify-between">
+                        <div className="text-start">
+                          <DialogTitle 
+                            as="h3"
+                            className="text-3xl font-black text-white"
+                            >
                             Nueva Tarea
                           </DialogTitle>
-                          <p className="text-white/90 text-lg font-medium">
-                            Llena el formulario y crea{" "}
-                            <span className="text-yellow-300 font-bold">una tarea</span>
-                          </p>
+                          <p className="text-slate-400 text-md">Completa el formulario y crea una tarea</p>
                         </div>
                         <button
                           onClick={() => navigate(location.pathname, { replace: true })}
@@ -96,12 +97,15 @@ const AddTaskModal = () => {
                     </div>
 
                     {/* Aquí iría el formulario para agregar la tarea */}
-                    <form className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-4 lg:p-10 border border-white/20" noValidate onSubmit={handleSubmit(handleCreateTask)}>
+                    <form className="shadow-2xl p-4 lg:p-10 border border-white/20" noValidate onSubmit={handleSubmit(handleCreateTask)}>
                         <TaskForm 
                             errors={errors} 
                             register={register}
                         />
-                        <ButtonForm isPending={isPending} loadingText="Guardando tarea...">
+                        <ButtonForm 
+                          isPending={isPending} 
+                          loadingText="Guardando tarea..."
+                        >
                           <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
                           Guardar
                         </ButtonForm>

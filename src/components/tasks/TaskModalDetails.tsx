@@ -9,6 +9,7 @@ import { ROUTE_PATHS } from '@/constants/routes';
 import type { TaskStatus } from '@/types/task';
 import { useTaskById, useUpdateTaskStatus } from '@/hooks/useTaskMutation';
 import { Calendar, CheckCircle, Clock, ClockArrowDown, Pause, Play, X } from 'lucide-react';
+import LabelField from '@/components/ui/LabelField';
 
 const TaskModalDetails = () => {
 
@@ -46,23 +47,23 @@ const TaskModalDetails = () => {
   const statusOptions = {
   pending: {
     icon: <ClockArrowDown className="w-4 h-4" />,
-    color: 'bg-blue-100 text-blue-600',
+    color: 'text-blue-600',
   },
   onHold: {
     icon: <Clock className="w-4 h-4" />,
-    color: 'bg-gray-100 text-gray-600',
+    color: 'text-red-600',
   },
   inProgress: {
-    icon: <Play className="w-4 h-4" />,
-    color: 'bg-yellow-100 text-yellow-600',
+    icon: <Play className="w-4 h-4"/>,
+    color: 'text-yellow-600',
   },
   underReview: {
     icon: <Pause className="w-4 h-4" />,
-    color: 'bg-purple-100 text-purple-600',
+    color: 'text-purple-600',
   },
   completed: {
     icon: <CheckCircle className="w-4 h-4" />,
-    color: 'bg-green-100 text-green-600',
+    color: 'text-green-600',
   },
 } as const;
 
@@ -94,16 +95,15 @@ const TaskModalDetails = () => {
                               leaveTo="opacity-0 scale-95"
                           >
                               <DialogPanel className="w-full max-w-3xl  transform text-left transition-all">
-                                <div className="relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl shadow-black/20 overflow-hidden border border-white/20">
+                                <div className="relative bg-slate-800 backdrop-blur-xl rounded-3xl shadow-2xl shadow-black/20 overflow-hidden border border-white/20">
 
-                                  <div className="bg-gradient-to-r from-slate-800 via-slate-800 to-slate-800 px-8 py-6">
+                                  <div className="bg-gradient-to-r from-slate-800 via-slate-800 to-slate-800 px-8 py-3">
                                     <div className="flex items-start justify-between">
-
                                       <div className="flex-1">
-                                        <DialogTitle as="h3" className="text-2xl font-bold text-white mb-2">
-                                          {data?.data.name}
+                                        <DialogTitle as="h3" className="text-2xl font-bold text-white">
+                                          Tarea : {data?.data.name}
                                         </DialogTitle>
-                                        <p className="text-white/90 text-lg font-medium mb-4">
+                                        <p className="text-white text-lg font-medium mb-4">
                                           Descripción : {data?.data.description}
                                         </p>
 
@@ -122,27 +122,25 @@ const TaskModalDetails = () => {
 
                                       <button 
                                         onClick={() => navigate(location.pathname, { replace: true })}
-                                        className="p-2 cursor-pointer hover:bg-white/20 rounded-lg transition-colors duration-200">
+                                        className="p-2 cursor-pointer hover:bg-white/20 rounded-full transition-colors duration-200">
                                         <X className="w-5 h-5 text-slate-300 hover:text-white" />
                                       </button>
-                                      
                                     </div>
                                   </div>
 
-                                  <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl flex flex-col gap-y-4 px-5 py-4 lg:px-10 lg:py-4 border border-white/20">
-                                    
+                                  <div className="backdrop-blur-sm shadow-2xl flex flex-col px-5 py-4 lg:px-10 lg:py-4 border border-white/20">
                                     <div className="flex items-center w-full">
-                                      <label className="flex items-center gap-3 font-medium text-gray-900">
-                                        <Clock className="w-4 h-4 text-orange-600" />
-                                        Estado Actual : 
-                                      </label>
-                                      <span className='font-medium text-gray-900 pl-2'>
-                                        {statusTranslations[data?.data.status]}
-                                      </span>
+                                      <LabelField
+                                        htmlFor="status"
+                                        icon={<Clock className="w-5 h-5 text-orange-600" />}
+                                      > 
+                                        Estado Actual : {statusTranslations[data?.data.status]}
+                                      </LabelField>
+                                      
                                     </div>
-
+                                    <h3 className="text-slate-300 text-md font-medium">Historial de cambios</h3>
                                     {data.data.completedBy.length ? (
-                                      <div className='flex-1 overflow-y-auto max-h-52 pr-2
+                                      <div className='flex-1 overflow-y-auto max-h-52 pr-2 mb-3
                                       [&::-webkit-scrollbar]:w-2
                                       [&::-webkit-scrollbar-track]:bg-slate-800/20
                                       [&::-webkit-scrollbar-track]:rounded-full
@@ -155,27 +153,26 @@ const TaskModalDetails = () => {
                                       dark:[&::-webkit-scrollbar-thumb]:bg-slate-600/60
                                       dark:hover:[&::-webkit-scrollbar-thumb]:bg-slate-400/70
                                       '>
-                                        <h3 className="text-lg font-medium text-gray-800">Historial de cambios</h3>
+                                        
                                         {data?.data.completedBy?.map((activityLog, index) => (
-                                          <div key={index} className="flex items-center p-2 rounded-lg border border-gray-100 hover:bg-gray-50 transition-colors">
+                                          <div key={index} className="flex items-center p-1 border-b border-gray-50/40 transition-colors">
                                             <div className="flex flex-col justify-center md:items-center md:flex-row gap-3 flex-1">
 
                                               <div className='flex items-center'>
-                                                <span className="text-gray-600 font-medium min-w-[20px]">{index + 1}.</span>
-
+                                                <span className="text-gray-300 font-medium min-w-[20px]">{index + 1}.</span>
                                                 <div className={`p-2 rounded-full ${statusOptions[activityLog.status].color}`}>
                                                   {statusOptions[activityLog.status].icon}
                                                 </div>
 
                                                 <div className="">
-                                                  <span className="font-medium text-gray-800">{statusTranslations[activityLog.status]} :</span>
+                                                  <span className="font-medium text-gray-200">{statusTranslations[activityLog.status]} :</span>
                                                 </div>
                                               </div>
                                              
 
-                                              <span className="flex-1 text-gray-600 ml-2">{activityLog.user.name}</span>
+                                              <span className="flex-1 text-gray-200 ml-2">{activityLog.user.name}</span>
                                               
-                                              <div className="text-sm text-gray-500 flex items-center gap-1">
+                                              <div className="text-sm text-gray-300 flex items-center gap-1">
                                                 <Clock className="w-3 h-3" />
                                                 {formatDateTime(activityLog.createdAt)}
                                               </div>
@@ -187,13 +184,16 @@ const TaskModalDetails = () => {
                                     ) : null}
 
                                     <div>
-                                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                                      <label className="block text-sm font-medium text-gray-200 mb-2">
                                         Nuevo Estado
                                       </label>
                                       <select
                                         onChange={handleChangeStatus}
                                         defaultValue={data?.data.status} name="" id=""
-                                        className="w-full px-4 py-3 text-base bg-gray-50 border border-gray-400 rounded-xl focus:border-gray-400 focus:bg-white transition-all duration-200 outline-none">
+                                        // className="w-full px-4 py-3 text-base bg-gray-50 border border-gray-400 rounded-xl focus:border-gray-400 focus:bg-white transition-all duration-200 outline-none"
+                                        className='w-full px-4 py-3 bg-slate-700/50 rounded-md focus:outline-none 
+                                        transition-all text-white border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50'
+                                        >
                                         {Object.entries(statusTranslations).map(([key, value]) => (
                                           <option key={key} value={key}>
                                             {value}
