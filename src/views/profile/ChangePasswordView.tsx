@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form"
 import type { UpdateCurrentUserPasswordForm } from "@/types/auth"
 import { useChangePasswordProfile } from "@/hooks/useProfileMutation"
-import ErrorMessage from "@/components/ErrorMessage"
 import { FileLock, LockKeyhole, Save } from "lucide-react"
-import ButtonForm from "@/components/ButtonForm"
+import ButtonForm from "@/components/ui/ButtonForm"
+import LabelField from "@/components/ui/LabelField"
+import InputField from "@/components/ui/InputField"
 
 const ChangePasswordView = () => {
 
@@ -45,106 +46,67 @@ const ChangePasswordView = () => {
 
         <form
           onSubmit={handleSubmit(handleChangePassword)}
-          className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-4 lg:p-12 border border-white/20"
+          className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 p-8 mb-20"
           noValidate
         >
-          <div className="space-y-2 mb-2">
-            <label
-              className="flex items-center gap-3 text-lg font-semibold text-gray-800 mb-3"
-              htmlFor="current_password">
-                <div className="p-2 bg-green-100 rounded-lg">
-                  <LockKeyhole className="w-5 h-5 text-green-600"/>
-                </div>
-                Contraseña Actual
-            </label>
-            <div className="relative">
-              <input
-                id="current_password"
-                type="password"
-                placeholder="Contraseña actual"
-                className={`w-full px-6 py-4 text-lg border-2 rounded-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-green-500/20 ${errors.current_password
-                                ? 'border-red-400 bg-red-50'
-                                : 'border-gray-200 focus:border-green-500 bg-white hover:border-gray-300'
-                            }`}
-                {...register("current_password", {
-                  required: 'La contraseña actual es requerida',
-                  minLength: {
-                    value: 1,
-                    message: 'Ingresa tu contraseña actual'
-                  }
-                })}
-                disabled={isPending}
-              />
-              {errors.current_password && (
-                <ErrorMessage>{errors.current_password.message}</ErrorMessage>
-              )}
-            </div>
-            
+          <div className="mb-5">
+            <LabelField
+              htmlFor="current_password"
+              icon={<LockKeyhole className="w-5 h-5 text-green-600" />}
+            >
+              Contraseña Actual
+            </LabelField>
+            <InputField
+              id="current_password"
+              type="password"
+              placeholder="Contraseña actual"
+              register={register("current_password", {
+                required: 'La contraseña actual es requerida',
+              })}
+              errors={errors.current_password}
+            />
           </div>
 
-          <div className="space-y-2 mb-2">
-            <label
-              className="flex items-center gap-3 text-lg font-semibold text-gray-800 mb-3"
-              htmlFor="password">
-              <div className="p-2 bg-blue-100 rounded-lg">
-                <LockKeyhole className="w-5 h-5 text-blue-600" />
-              </div>
-                Nueva Contraseña
-            </label>
-            <div className="relative">
-              <input
-                id="password"
-                type="password"
-                placeholder="Nueva contraseña"
-                className={`w-full px-6 py-4 text-lg border-2 rounded-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-green-500/20 ${errors.password
-                                ? 'border-red-400 bg-red-50'
-                                : 'border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300'
-                            }`}
-                {...register("password", {
-                  required: "La nueva contraseña es obligatoria",
-                  minLength: {
-                    value: 8,
-                    message: 'La contraseña debe ser mínimo de 8 caracteres'
-                  }
-                })}
-                disabled={isPending}
-              />
-              {errors.password && (
-                <ErrorMessage>{errors.password.message}</ErrorMessage>
-              )}
-            </div>
+          <div className="mb-5">
+            <LabelField
+              htmlFor="password"
+              icon={<LockKeyhole className="w-5 h-5 text-blue-600" />}
+            >
+              Nueva Contraseña
+            </LabelField>
+            <InputField
+              id="password"
+              type="password"
+              placeholder="Nueva contraseña"
+              register={register("password", {
+                required: "La nueva contraseña es obligatoria",
+              })}
+              errors={errors.password}
+            />
           </div>
 
-          <div className="space-y-2 mb-2">
-            <label
+          <div className="mb-5">
+            <LabelField
               htmlFor="password_confirmation"
-              className="flex items-center gap-3 text-lg font-semibold text-gray-800 mb-3">
-              <div className="p-2 bg-green-100 rounded-lg">
-                <LockKeyhole className="w-5 h-5 text-fuchsia-600" />
-              </div>
-                Repetir Contraseña
-            </label>
-            <div className="relative">
-              <input
-                id="password_confirmation"
-                type="password"
-                placeholder="Repetir contraseña"
-                className={`w-full px-6 py-4 text-lg border-2 rounded-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-green-500/20 ${errors.password_confirmation
-                                ? 'border-red-400 bg-red-50'
-                                : 'border-gray-200 focus:border-fuchsia-500 bg-white hover:border-gray-300'
-                            }`}
-                {...register("password_confirmation", {
-                  required: "Este campo es obligatorio",
-                  validate: value => value === password || 'Las contraseñas no coinciden'
-                })}
-                disabled={isPending}
-              />
-              {errors.password_confirmation && (
-                <ErrorMessage>{errors.password_confirmation.message}</ErrorMessage>
-              )}
-            </div>
+              icon={<LockKeyhole className="w-5 h-5 text-fuchsia-600" />}
+            >
+              Repetir Contraseña
+            </LabelField>
+            <InputField
+              id="password_confirmation"
+              type="password"
+              placeholder="Repetir contraseña"
+              register={register("password_confirmation", {
+                required: "Este campo es obligatorio",
+                validate: value => value === password || 'Las contraseñas no coinciden'
+              })}
+              errors={errors.password_confirmation}
+            />
           </div>
-          <ButtonForm isPending={isPending} loadingText="Actualizando contraseña...">
+          <ButtonForm 
+            isPending={isPending} 
+            loadingText="Actualizando contraseña..."
+          >
             <Save className="w-6 h-6" />
             Guardar cambios
           </ButtonForm>
