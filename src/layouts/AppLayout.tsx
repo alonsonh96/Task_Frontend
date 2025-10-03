@@ -9,8 +9,8 @@ const AppLayout = () => {
   const { data } = useAuth()
 
   if(data) return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
-    <header className="bg-slate-800/80 backdrop-blur-xl border-b border-slate-700/50 px-8 py-4 shadow-2xl">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950">
+    <header className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 px-8 py-4 shadow-2xl">
         <div className="flex justify-between items-center">
           <Link to={ROUTE_PATHS.HOME} className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">

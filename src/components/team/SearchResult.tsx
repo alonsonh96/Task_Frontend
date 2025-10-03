@@ -24,15 +24,14 @@ export const SearchResult = ({ user, reset }: SearchResultProps) => {
   }}
 
   return (
-    <div className="mt-10 space-y-6">
+    <div className="mt-5 space-y-0 px-4 lg:px-10">
       {/* Header */}
-      <div className="text-center">
-        <h3 className="text-lg font-semibold text-gray-800 mb-1">Resultado:</h3>
-        <div className="w-16 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
+      <div className="text-start">
+        <h3 className="text-lg font-semibold text-white mb-1">Resultado :</h3>
       </div>
 
       {/* User Card Result */}
-      <div className="bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 rounded-xl p-6 shadow-sm">
+      <div className="text-white pb-5">
         <div className="flex flex-col sm:flex-row gap-y-3 sm:gap-y-0 items-center justify-between">
           {/* User Info */}
           <div className="flex items-center gap-4">
@@ -46,11 +45,11 @@ export const SearchResult = ({ user, reset }: SearchResultProps) => {
             {/* User Details */}
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
-                <User className="w-4 h-4 text-gray-500" />
-                <span className="text-sm font-medium text-gray-600">Usuario encontrado:</span>
+                <User className="w-4 h-4 text-white" />
+                <span className="text-sm font-medium">Usuario :</span>
               </div>
-              <h4 className="text-lg font-semibold text-gray-900 mb-1">{name}</h4>
-              <div className="flex items-center gap-1 text-sm text-gray-600">
+              <h4 className="text-lg font-semibold mb-1">{name}</h4>
+              <div className="flex items-center gap-1 text-sm">
                 <Mail className="w-3 h-3" />
                 <span>{email}</span>
               </div>

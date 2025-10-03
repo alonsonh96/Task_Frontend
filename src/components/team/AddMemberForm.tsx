@@ -3,9 +3,10 @@ import { useParams } from "react-router-dom";
 import { SearchResult } from "./SearchResult";
 import type { TeamMemberForm } from "@/types/team";
 import { useFindUserByEmail } from "@/hooks/useTeamMutation";
-import ErrorMessage from "../ErrorMessage";
-import ButtonForm from "../ButtonForm";
-import { Mail, Search } from "lucide-react";
+import { Mail, OctagonX, Search } from "lucide-react";
+import LabelField from "@/components/ui/LabelField";
+import InputField from "@/components/ui/InputField";
+import ButtonForm from "@/components/ui/ButtonForm";
 
 export const AddMemberForm = () => {
 
@@ -33,52 +34,42 @@ export const AddMemberForm = () => {
         <>
 
             <form
-                className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-4 lg:p-10 border border-white/20"
+                className=" backdrop-blur-sm shadow-2xl p-4 lg:p-10 border border-white/20"
                 onSubmit={handleSubmit(handleSearchUser)}
                 noValidate
             >
-
-                <div className="space-y-2">
-                    <label
-                        htmlFor="name"
-                        className="flex items-center gap-3 text-lg font-semibold text-gray-800 mb-3"
+                <div className="mb-5">
+                    <LabelField
+                        htmlFor="email"
+                        icon={<Mail className="w-5 h-5 text-blue-600"/>}
                     >
-                        <div className="p-2 bg-blue-100 rounded-lg">
-                            <Mail className="w-5 h-5 text-blue-600"/>
-                        </div>E-mail de Usuario
-                    </label>
-                    <div className="relative group">
-                        <input
-                            id="name"
-                            type="text"
-                            placeholder="E-mail del usuario a Agregar"
-                            className={`w-full px-6 py-4 text-lg border-2 rounded-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500/20
-                                ${errors.email 
-                                ? 'border-red-400 bg-red-50'
-                                : 'border-gray-200 focus:border-blue-500 bg-white hover:border-gray-300'}`}
-                            {...register("email", {
-                                required: "El Email es obligatorio",
-                                pattern: {
+                        Correo electrónico del usuario
+                    </LabelField>
+                    <InputField
+                        id="email"
+                        type="email"
+                        placeholder="Correo electrónico del usuario a agregar"
+                        register={register("email", {
+                            required: "Ingrese un correo electrónico",
+                            pattern: {
                                     value: /\S+@\S+\.\S+/,
-                                    message: "E-mail no válido",
-                                },
-                            })}
-                        />
-                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-focus-within:opacity-100 transition-opacity pointer-events-none" />
-                    </div>
-                    {errors.email && (
-                        <ErrorMessage>{errors.email.message}</ErrorMessage>
-                    )}
+                                    message: "Correo electrónico no válido",
+                            },
+                        })}
+                        errors={errors.email}
+                    />
                 </div>
-
-                <ButtonForm isPending={mutation.isPending} loadingText="Buscando usuario...">
+                <ButtonForm isPending={mutation.isPending} loadingText="Buscando usuario ...">
                     <Search className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300"/>
                     Buscar
                 </ButtonForm>
             </form>
 
-            {mutation.isPending && (<p className="mx-auto text-center mt-10">Cargando ...</p>)}
-            {mutation.error && (<p className="mx-auto text-center mt-10">Usuario no encontrado</p>)}
+            {mutation.error && (
+                <p className="flex items-center justify-center gap-2 mx-auto text-center text-white mt-5 mb-5">
+                    <OctagonX className="w-4 h-4 text-red-600"/>
+                    No se encontró al usuario
+                </p>)}
             {mutation.data && (<SearchResult user={mutation.data.data} reset={resetData}/>)}
         </>
     )

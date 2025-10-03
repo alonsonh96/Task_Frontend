@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const tabs = [
     { name: 'Mi Cuenta', href: ROUTE_PATHS.PROFILE.VIEW, icon: UserIcon },
-    { name: 'Cambiar Password', href: ROUTE_PATHS.PROFILE.PASSWORD, icon: FingerPrintIcon },
+    { name: 'Cambiar contraseña', href: ROUTE_PATHS.PROFILE.PASSWORD, icon: FingerPrintIcon },
 ]
 
 function classNames(...classes: string[]) {

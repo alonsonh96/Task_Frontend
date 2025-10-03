@@ -41,19 +41,17 @@ export const AddMemberModal = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <DialogPanel className="w-full max-w-2xl transform transition-all">
-                                    <div className="relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl shadow-black/20 overflow-hidden border border-white/20">
+                                    <div className="relative bg-slate-800 backdrop-blur-xl rounded-3xl shadow-2xl shadow-black/20 overflow-hidden border border-white/20">
                                         <div className="bg-gradient-to-r from-slate-800 via-slate-800 to-slate-800 px-8 py-6">
-                                            <div className="flex text-start justify-between">
-                                                <div>
+                                            <div className="flex items-start justify-between">
+                                                <div className="text-start">
                                                     <DialogTitle
                                                         as="h3"
-                                                        className="text-3xl font-black text-white mb-2"
+                                                        className="text-3xl font-black text-white"
                                                     >
-                                                        Nuevo integrante
+                                                        Agregar integrante
                                                     </DialogTitle>
-                                                    <p className="text-white/90 text-lg font-medium">Busca el nuevo integrante por email {''}
-                                                        <span className="text-yellow-300 font-bold">para agregarlo al proyecto</span>
-                                                    </p>
+                                                    <p className="text-slate-400 text-md">Busca el nuevo integrante por su correo electrónico para agregarlo al proyecto</p>
                                                 </div>
                                                 <button
                                                     onClick={() => navigate(location.pathname, { replace: true })}
@@ -63,8 +61,6 @@ export const AddMemberModal = () => {
                                                 </button>
                                             </div>
                                         </div>
-
-
                                         <AddMemberForm />
                                     </div>
                                 </DialogPanel>
