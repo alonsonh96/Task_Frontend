@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form";
-import ErrorMessage from "@/components/ErrorMessage";
 import { Link } from "react-router-dom";
 import { ROUTE_PATHS } from "@/constants/routes";
 import type { UserRegistrationForm } from "@/types/auth";
 import { useCreateAccount } from "@/hooks/useAuthMutations";
+import LabelField from "@/components/ui/LabelField";
+import InputField from "@/components/ui/InputField";
+import ButtonForm from "@/components/ui/ButtonForm";
 
 const RegisterView = () => {
 
@@ -16,7 +18,7 @@ const RegisterView = () => {
 
   const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<UserRegistrationForm>({ defaultValues: initialValues });
 
-  const { mutate } = useCreateAccount();
+  const { mutate, isPending } = useCreateAccount();
 
   const password = watch('password');
 
@@ -36,109 +38,76 @@ const RegisterView = () => {
         <h2 className="text-2xl text-center font-semibold text-white mb-2">Crear Cuenta</h2>
         <p className="text-slate-400 text-center text-sm mb-8">Llena el formulario para crear tu cuenta</p>
         <div className="mb-5">
-          <label
-            className="block text-slate-300 text-sm font-medium mb-2"
-            htmlFor="email"
-          >Email</label>
-          <input
+          <LabelField htmlFor="email">
+            Correo electrónico
+          </LabelField>
+          <InputField
             id="email"
             type="email"
             placeholder="nombre@ejemplo.com"
-            className={`w-full px-4 py-3 bg-slate-900/50 border rounded-lg focus:outline-none transition-all text-white placeholder-slate-500
-            ${errors.email
-              ? 'border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500/50'
-              : 'border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50'
-            }`}
-            {...register("email", {
+            register={register("email", {
               required: "El correo electrónico de registro es obligatorio",
               pattern: {
                 value: /\S+@\S+\.\S+/,
                 message: "Correo electrónico no válido",
-              },
+              }
             })}
+            errors={errors.email}
           />
-          {errors.email && (
-            <ErrorMessage>{errors.email.message}</ErrorMessage>
-          )}
         </div>
 
         <div className="mb-5">
-          <label
-            className="block text-slate-300 text-sm font-medium mb-2"
-          >Nombre</label>
-          <input
+          <LabelField htmlFor="name">
+            Nombre
+          </LabelField>
+          <InputField
+            id="name"
             type="name"
             placeholder="Nombre de registro"
-            className={`w-full px-4 py-3 bg-slate-900/50 border rounded-lg focus:outline-none transition-all text-white placeholder-slate-500
-            ${errors.name
-              ? 'border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500/50'
-              : 'border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50'
-            }`}
-            {...register("name", {
+            register={register("name", {
               required: "El Nombre de usuario es obligatorio",
             })}
+            errors={errors.name}
           />
-          {errors.name && (
-            <ErrorMessage>{errors.name.message}</ErrorMessage>
-          )}
         </div>
 
         <div className="mb-5">
-          <label
-            className="block text-slate-300 text-sm font-medium mb-2"
-          >Contraseña</label>
-
-          <input
+          <LabelField htmlFor="password">
+            Contraseña
+          </LabelField>
+          <InputField
+            id="password"
             type="password"
             placeholder="••••••••"
-            className={`w-full px-4 py-3 bg-slate-900/50 border rounded-lg focus:outline-none transition-all text-white placeholder-slate-500
-            ${errors.password
-              ? 'border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500/50'
-              : 'border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50'
-            }`}
-            {...register("password", {
+            register={register("password", {
               required: "La contraseña es obligatorio",
               minLength: {
                 value: 8,
                 message: 'La contraseña debe ser mínimo de 8 caracteres'
               }
             })}
+            errors={errors.password}
           />
-          {errors.password && (
-            <ErrorMessage>{errors.password.message}</ErrorMessage>
-          )}
         </div>
 
         <div className="mb-5">
-          <label
-            className="block text-slate-300 text-sm font-medium mb-2"
-          >Repetir contraseña</label>
-
-          <input
+          <LabelField htmlFor="password_confirmation">
+            Repetir contraseña
+          </LabelField>
+          <InputField
             id="password_confirmation"
             type="password"
             placeholder="••••••••"
-            className={`w-full px-4 py-3 bg-slate-900/50 border rounded-lg focus:outline-none transition-all text-white placeholder-slate-500
-            ${errors.password_confirmation
-              ? 'border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500/50'
-              : 'border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50'
-            }`}
-            {...register("password_confirmation", {
+            register={register("password_confirmation", {
               required: "Repetir contraseña es obligatorio",
               validate: value => value === password || 'Las contraseñas no son iguales'
             })}
+            errors={errors.password_confirmation}
           />
-
-          {errors.password_confirmation && (
-            <ErrorMessage>{errors.password_confirmation.message}</ErrorMessage>
-          )}
         </div>
-
-        <input
-          type="submit"
-          value='Registrarme'
-          className="cursor-pointer w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-blue-500/25"
-        />
+        <ButtonForm isPending={isPending} loadingText="Creando cuenta...">
+          Registrarme
+        </ButtonForm>
 
         {/* Divider */}
         <div className="relative my-6">

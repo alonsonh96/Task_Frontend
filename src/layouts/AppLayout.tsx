@@ -26,7 +26,7 @@ const AppLayout = () => {
       <section className="max-w-11/12 mx-auto pt-5">
         <Outlet />
       </section>
-      <footer className="py-8 w-full border-t border-slate-700/50 bg-slate-800/30 backdrop-blur-sm">
+      <footer className="py-8 mt-10 w-full border-t border-slate-700/50 bg-slate-800/30 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6">
           <p className="text-center text-slate-400 font-medium">
             Todos los derechos reservados {new Date().getFullYear()}

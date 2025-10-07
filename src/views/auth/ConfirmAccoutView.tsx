@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ROUTE_PATHS } from "@/constants/routes";
 import type { ConfirmToken } from "@/types/auth";
 import { useConfirmAccount } from "@/hooks/useAuthMutations";
+import LabelField from "@/components/ui/LabelField";
 
 
 const ConfirmAccoutView = () => {
@@ -26,9 +27,9 @@ const ConfirmAccoutView = () => {
           Ingresa el código que recibiste por correo electrónico
         </p>
         <div className="flex flex-col items-center">
-          <label className="block text-slate-300 text-md font-medium mb-4">
+          <LabelField htmlFor="token">
             Código de 6 dígitos
-          </label>
+          </LabelField>
           <div className="flex justify-center gap-5">
               <PinInput value={token} onChange={handleChange} onComplete={handleComplete}>
                 {Array.from({ length: 6 }).map((_, i) => (

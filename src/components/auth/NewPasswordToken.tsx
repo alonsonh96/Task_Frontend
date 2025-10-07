@@ -3,6 +3,7 @@ import { useValidateToken } from '@/hooks/useAuthMutations';
 import type { ConfirmToken } from '@/types/auth';
 import { PinInput, PinInputField } from '@chakra-ui/pin-input';
 import { Link } from 'react-router-dom';
+import LabelField from '../ui/LabelField';
 
 type NewPasswordTokenProps = {
     token: ConfirmToken['token'],
@@ -21,9 +22,9 @@ const NewPasswordToken = ( { token, setToken, setIsValidToken } : NewPasswordTok
   return (
     <>
         <form className="flex flex-col items-center">
-            <label className="block text-slate-300 text-md font-medium mb-4">
-                Código de 6 dígitos
-            </label>
+            <LabelField htmlFor="token">
+              Código de 6 dígitos
+            </LabelField>
             <div className="flex justify-center gap-5">
               <PinInput value={token} onChange={handleChange} onComplete={handleComplete}>
                 {Array.from({ length: 6 }).map((_, i) => (

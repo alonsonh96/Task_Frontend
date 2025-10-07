@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import ErrorMessage from "@/components/ErrorMessage";
 import { ROUTE_PATHS } from "@/constants/routes";
 import type { RequestConfirmationCodeForm } from "@/types/auth";
 import { useRequestConfirmationCode } from "@/hooks/useAuthMutations";
+import LabelField from "@/components/ui/LabelField";
+import InputField from "@/components/ui/InputField";
+import ButtonForm from "@/components/ui/ButtonForm";
 
 const RequestNewCodeView = () => {
 
@@ -13,7 +15,7 @@ const RequestNewCodeView = () => {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialValues });
 
-    const { mutate } = useRequestConfirmationCode()
+    const { mutate, isPending } = useRequestConfirmationCode()
 
     const handleRequestCode = (formData: RequestConfirmationCodeForm) => {
         mutate(formData)
@@ -34,37 +36,26 @@ const RequestNewCodeView = () => {
                     Coloca tu correo electrónico para recibir un nuevo código
                 </p>
                 <div className="mb-5">
-                    <label
-                        className="block text-slate-300 text-sm font-medium mb-2"
-                        htmlFor="email"
-                    >Correo electrónico</label>
-                    <input
+                    <LabelField htmlFor="email">
+                        Correo electrónico
+                    </LabelField>
+                    <InputField
                         id="email"
                         type="email"
                         placeholder="nombre@ejemplo.com"
-                        className={`w-full px-4 py-3 bg-slate-900/50 border rounded-lg focus:outline-none transition-all text-white placeholder-slate-500
-                        ${errors.email
-                        ? 'border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500/50'
-                        : 'border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50'
-                        }`}
-                        {...register("email", {
+                        register={register("email", {
                             required: "El correo electrónico de registro es obligatorio",
                             pattern: {
                                 value: /\S+@\S+\.\S+/,
                                 message: "Correo electrónico no válido",
                             },
                         })}
+                        errors={errors.email}
                     />
-                    {errors.email && (
-                        <ErrorMessage>{errors.email.message}</ErrorMessage>
-                    )}
                 </div>
-
-                <input
-                    type="submit"
-                    value='Enviar Código'
-                    className="cursor-pointer w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-blue-500/25"
-                />
+                <ButtonForm isPending={isPending} loadingText="Enviando..">
+                    Enviar Código
+                </ButtonForm>
 
                 {/* Divider */}
                 <div className="relative my-6">

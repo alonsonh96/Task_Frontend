@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
-import ErrorMessage from "@/components/ErrorMessage";
 import { Link } from "react-router-dom";
 import { ROUTE_PATHS } from "@/constants/routes";
 import type { UserLoginForm } from "@/types/auth";
 import { useLogin } from "@/hooks/useAuthMutations";
+import LabelField from "@/components/ui/LabelField";
+import InputField from "@/components/ui/InputField";
 
 const LoginView = () => {
 
@@ -31,53 +32,39 @@ const LoginView = () => {
         <p className="text-slate-400 text-center text-sm mb-8">Maneja y administra tus proyectos</p>
         {/* Email Field */}
         <div className="mb-5">
-          <label
-            className="block text-slate-300 text-sm font-medium mb-2"
-          >Correo electrónico</label>
+          <LabelField htmlFor="email">
+            Correo electrónico
+          </LabelField>
 
-          <input
+          <InputField
             id="email"
             type="email"
             placeholder="nombre@ejemplo.com"
-            className={`w-full px-4 py-3 bg-slate-900/50 border rounded-lg focus:outline-none transition-all text-white placeholder-slate-500
-            ${errors.email
-              ? 'border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500/50'
-              : 'border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50'
-            }`}
-            {...register("email", {
+            register={register("email", {
               required: "El correo electrónico es obligatorio",
               pattern: {
                 value: /\S+@\S+\.\S+/,
                 message: "Correo electrónico no válido",
               },
             })}
+            errors={errors.email}
           />
-          {errors.email && (
-            <ErrorMessage>{errors.email.message}</ErrorMessage>
-          )}
         </div>
+
         {/* Password Field */}
         <div className="mb-6">
-          <label
-            className="block text-slate-300 text-sm font-medium mb-2"
-          >Contraseña</label>
-
-          <input
+          <LabelField htmlFor="password">
+            Contraseña
+          </LabelField>
+          <InputField
+            id="password"
             type="password"
             placeholder="••••••••"
-            // className="w-full p-3  border-gray-300 border"
-            className={`w-full px-4 py-3 bg-slate-900/50 border rounded-lg focus:outline-none transition-all text-white placeholder-slate-500
-            ${errors.password
-              ? 'border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500/50'
-              : 'border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50'
-            }`}
-            {...register("password", {
+            register={register("password", {
               required: "La contraseña es obligatoria",
             })}
+            errors={errors.password}
           />
-          {errors.password && (
-            <ErrorMessage>{errors.password.message}</ErrorMessage>
-          )}
         </div>
         
         <div className="flex justify-end mb-8">

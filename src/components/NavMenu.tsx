@@ -21,7 +21,7 @@ const NavMenu = ( { user } : NavMenuProps  ) => {
   const handleLogout = () => logoutMutation.mutate()
 
   return (
-      <Popover className="relative z-40">
+      <Popover className="relative z-10">
         <PopoverButton className="bg-slate-700/50 hover:bg-slate-600/50 border border-slate-600/50 text-slate-300 hover:text-white p-3 cursor-pointer rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl group">
           <svg className="w-6 h-6 transition-transform duration-200 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
