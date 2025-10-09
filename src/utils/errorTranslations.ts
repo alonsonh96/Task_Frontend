@@ -135,6 +135,7 @@ export const MESSAGE_TRANSLATIONS: Record<string | number, string> = {
     TEAM_MEMBER_REMOVE_SUCCESS: "Usuario eliminado correctamente del proyecto",
     TEAM_MEMBERS_FETCH_SUCCESS: "Lista de miembros obtenida correctamente",
     TEAM_MEMBER_NOT_IN_PROJECT: "El usuario no es miembro de este proyecto",
+    TEAM_MEMBER_SELF_ADD_NOT_ALLOWED: "No puedes agregarte a ti mismo al equipo",
 
     // ****** RATE_LIMIT *****
     AUTH_RATE_LIMITED: "Demasiados intentos de autenticación. Inténtalo de nuevo en 15 minutos.",

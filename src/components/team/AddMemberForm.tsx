@@ -68,7 +68,7 @@ export const AddMemberForm = () => {
             {mutation.error && (
                 <p className="flex items-center justify-center gap-2 mx-auto text-center text-white mt-5 mb-5">
                     <OctagonX className="w-4 h-4 text-red-600"/>
-                    No se encontró al usuario
+                    {mutation.error.message}
                 </p>)}
             {mutation.data && (<SearchResult user={mutation.data.data} reset={resetData}/>)}
         </>
