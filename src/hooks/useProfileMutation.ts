@@ -12,8 +12,8 @@ export const useUpdateProfile = () => {
     return useMutation({
         mutationFn: updateProfile,
         onError: (error) => toast.error(error.message),
-        onSuccess: (data) => {
-            toast.success(data?.message)
+        onSuccess: (response) => {
+            toast.success(response?.message)
             queryClient.invalidateQueries({ queryKey: authKeys.user})
         }
     })
@@ -29,8 +29,7 @@ export const useChangePasswordProfile = () => {
             toast.error(errorMessage)
         },
         onSuccess: (data) => {
-            const successMessage = data?.message || 'Contraseña cambiada exitosamente'
-            toast.success(successMessage)
+            toast.success(data?.message)
 
             // Sail only after success
             setTimeout(() => {

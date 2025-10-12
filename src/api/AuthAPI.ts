@@ -9,10 +9,11 @@ import type {
     UserRegistrationForm 
 } from "@/types/auth";
 import { userResponseSchema } from "@/types/user";
+import type { ApiResponse } from "../types";
 
 export async function createAccount(formData  : UserRegistrationForm) {
     try {
-        const { data } = await API.post<{ message: string }>(`/auth/create-account`, formData)
+        const { data } = await API.post(`/auth/create-account`, formData)
         return data
     } catch (error) {
         hanldeApiError(error)
@@ -22,7 +23,7 @@ export async function createAccount(formData  : UserRegistrationForm) {
 
 export async function confirmAccount(formData: ConfirmToken){
     try {
-        const { data } = await API.post<{message: string}>(`/auth/confirm-account`, formData)
+        const { data } = await API.post(`/auth/confirm-account`, formData)
         return data
     } catch (error) {
         hanldeApiError(error)
@@ -32,7 +33,7 @@ export async function confirmAccount(formData: ConfirmToken){
 
 export async function requestConfirmationCode(formData: RequestConfirmationCodeForm){
     try {
-        const { data } = await API.post<{ message: string }>(`/auth/request-code`, formData)
+        const { data } = await API.post(`/auth/request-code`, formData)
         return data
     } catch (error) {
         hanldeApiError(error)
@@ -93,8 +94,8 @@ export async function getUser(){
 
 export async function logoutUser(){
     try {
-       await API.post('auth/logout')
-       return true
+        const { data } = await API.post<ApiResponse>(`/auth/logout`)
+        return data
     } catch (error) {
         hanldeApiError(error)
     }

@@ -121,11 +121,11 @@ export const useLogout = () => {
         onError: (error) => {
             toast.error(error.message)
         },
-        onSuccess: () => {
+        onSuccess: (response) => {
             queryClient.invalidateQueries({ queryKey: authKeys.user })
             queryClient.clear()
             navigate(ROUTE_PATHS.AUTH.LOGIN)
-            toast.success('Sesión cerrada correctamente');
+            toast.success(response?.message);
         }
     })
 }
